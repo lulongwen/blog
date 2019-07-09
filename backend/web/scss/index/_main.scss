@@ -1,0 +1,36 @@
+
+$border-color: #e8eaec;
+
+.admin-index {
+  position: relative;
+  height: 40px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid $border-color;
+
+
+  > h1 {
+    margin: 0;
+    line-height: 1.6;
+    font-size: 18px;
+  }
+  > .btn.btn-sm {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
+
+
+.create-title {
+  margin: 0 0 16px 0;
+  padding-bottom: 9px;
+  font-size: 18px;
+  border-bottom: 1px solid $border-color;
+}
+
+
+.grid-view {
+  .summary {
+    margin: 8px 0;
+  }
+}
