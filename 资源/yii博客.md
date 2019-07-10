@@ -53,7 +53,19 @@ composer 设置中文镜像
 
 ## Yii2 知识点
 ```
-ActiveRecord
+ActiveRecord 活动记录 AR类
+  yii2的灵魂，将数据库和模型建立起了联系
+	可以像 访问对象一样，访问到数据库的关联字段
+
+QueryBuilder
+
+DataProvider 数据提供者
+
+小部件
+	DetailView
+	ListView
+	GridView
+
 
 application 要结合上下文来理解
 	\Yii::$app

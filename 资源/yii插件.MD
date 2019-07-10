@@ -1,20 +1,65 @@
 # Yii2 博客插件
+* yii2 + yii-admin + yii-adminlte
 
 
 ## composer require
 ```
+  composer create-project yiisoft/yii2-app-advanced Blog
+
+  composer require dmstr/yii2-adminlte-asset "^2.1"
+	composer require mdmsoft/yii2-admin "~2.0"
+	composer require "bizley/quill ^2.0"
+	composer require mludvik/yii2-tags-input:"~1.0"
+
+  php composer.phar require "bizley/quill ^2.0"
 
 
-```
-
-
-## composer.json
-
-```
+composer.json
 {
 	"mludvik/yii2-tags-input": "~1.0"
 }
+```
 
+
+## CRM Composer Registry Manager
+```
+安装 crm
+	composer global require slince/composer-registry-manager
+
+
+列出当前可用的所有镜像源
+composer repo:ls
+  composer        https://packagist.org                           
+  phpcomposer     https://packagist.phpcomposer.com               
+  aliyun          https://mirrors.aliyun.com/composer             
+  tencent         https://mirrors.cloud.tencent.com/composer      
+  huawei          https://mirrors.huaweicloud.com/repository/php  
+  laravel-china   https://packagist.laravel-china.org             
+  cnpkg           https://php.cnpkg.org                           
+  sjtug           https://packagist.mirrors.sjtug.sjtu.edu.cn
+
+
+使用 laravel-china 镜像源
+  composer repo:use laravel-china
+
+
+CRM 使用文档
+	https://github.com/slince/composer-registry-manager/blob/master/README-zh_CN.md
+
+  https://learnku.com/articles/15977/composer-accelerate-and-modify-mirror-source-in-china
+	
+  https://github.com/slince/composer-registry-manager
+
+
+composer 修改中文镜像
+	composer config -g repo.packagist composer https://packagist.phpcomposer.com
+解除镜像
+  composer config -g --unset repos.packagist
+
+只在当前项目有效
+  composer config repo.packagist composer https://packagist.laravel-china.org
+取消当前项目配置
+  composer config --unset repos.packagist
 ```
 
 
