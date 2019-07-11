@@ -3,8 +3,8 @@
   1 字段名不用下划线，尽量简短，所见即所得
 */
 -- 后台用户表
-DROP TABLE IF EXISTS `blog_admin`;
-CREATE TABLE `blog_admin` (
+DROP TABLE IF EXISTS `blog_adminuser`;
+CREATE TABLE `blog_adminuser` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增 id',
   `username` varchar(80) NOT NULL COMMENT '用户名',
   `nickname` varchar(80) NOT NULL COMMENT '昵称',

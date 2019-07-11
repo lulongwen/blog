@@ -1,0 +1,103 @@
+.ptb-16 {
+  padding-top: 16px;
+  padding-bottom: 16px; }
+
+.ptb-32 {
+  padding-top: 32px;
+  padding-bottom: 32px; }
+
+.pt-50 {
+  padding-top: 50px; }
+
+html,
+body {
+  height: 100%; }
+
+.avatar > img {
+  width: 40px;
+  position: absolute;
+  top: 5px;
+  left: 0; }
+
+.navbar-inverse {
+  background-color: #7F57FF;
+  border-color: #7F57FF; }
+
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+  background-color: #8a6cf2; }
+
+.navbar-inverse .navbar-brand {
+  color: #fff; }
+
+.footer {
+  height: 60px;
+  background-color: #f5f5f5;
+  border-top: 1px solid #ddd;
+  padding-top: 20px; }
+
+/* add sorting icons to gridview sort links */
+a.asc:after, a.desc:after {
+  position: relative;
+  top: 1px;
+  display: inline-block;
+  font-family: 'Glyphicons Halflings';
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  padding-left: 5px; }
+
+a.asc:after {
+  content: "\e151"; }
+
+a.desc:after {
+  content: "\e152"; }
+
+.sort-numerical a.asc:after {
+  content: "\e153"; }
+
+.sort-numerical a.desc:after {
+  content: "\e154"; }
+
+.sort-ordinal a.asc:after {
+  content: "\e155"; }
+
+.sort-ordinal a.desc:after {
+  content: "\e156"; }
+
+.error-summary {
+  color: #a94442;
+  background: #fdf7f7;
+  border-left: 3px solid #eed3d7;
+  padding: 10px 20px;
+  margin: 0 0 15px 0; }
+
+.nav li > form > button.logout {
+  padding: 15px;
+  border: none; }
+  .nav li > form > button.logout:focus, .nav li > form > button.logout:hover {
+    text-decoration: none; }
+  .nav li > form > button.logout:focus {
+    outline: none; }
+
+.login {
+  background: url(../images/public/login.jpg) no-repeat center fixed;
+  background-size: cover; }
+  .login-form {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    width: 400px;
+    margin: 0 auto;
+    padding: 32px;
+    transform: translateX(-50%);
+    box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.65); }
+    .login-form h1 {
+      margin-bottom: 32px;
+      font-size: 20px;
+      font-weight: 600;
+      text-transform: uppercase;
+      text-align: center; }
+
+/*# sourceMappingURL=index.css.map */

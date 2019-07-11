@@ -17,7 +17,7 @@ class CommentSearch extends Comment
     public function rules()
     {
         return [
-            [['id', 'status', 'create_time', 'user_id', 'post_id'], 'integer'],
+            [['id', 'status', 'fans_id', 'post_id', 'remind', 'created_at', 'updated_at', 'is_deleted', 'pv', 'praise', 'collect'], 'integer'],
             [['content', 'email', 'url'], 'safe'],
         ];
     }
@@ -60,9 +60,15 @@ class CommentSearch extends Comment
         $query->andFilterWhere([
             'id' => $this->id,
             'status' => $this->status,
-            'create_time' => $this->create_time,
-            'user_id' => $this->user_id,
+            'fans_id' => $this->fans_id,
             'post_id' => $this->post_id,
+            'remind' => $this->remind,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'is_deleted' => $this->is_deleted,
+            'pv' => $this->pv,
+            'praise' => $this->praise,
+            'collect' => $this->collect,
         ]);
 
         $query->andFilterWhere(['like', 'content', $this->content])

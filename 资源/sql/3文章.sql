@@ -58,6 +58,7 @@ DROP TABLE IF EXISTS `blog_post_status`;
 CREATE TABLE `blog_post_status` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增 id',
   `postid` int(11) not null comment '文章 id',
+  `name` varchar(40) NOT NULL COMMENT 'name',
   `position` int(11) NOT NULL COMMENT 'position',
   
   `pv` int(11) DEFAULT '1' COMMENT '网页浏览量',

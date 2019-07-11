@@ -1,7 +1,6 @@
 <?php
 
 /* @var $this \yii\web\View */
-/* @var $content string */
 
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
@@ -10,74 +9,92 @@ use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 
-AppAsset::register($this);
+$avatar = Yii ::$app -> params['avatar']['image'];
+$user = Yii ::$app -> user -> identity -> username;
+
+AppAsset ::register($this);
 ?>
-<?php $this->beginPage() ?>
+<?php $this -> beginPage() ?>
 <!DOCTYPE html>
-<html lang="<?= Yii::$app->language ?>">
+<html lang="<?= Yii ::$app -> language ?>">
 <head>
-    <meta charset="<?= Yii::$app->charset ?>">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?php $this->registerCsrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
-    <?php $this->head() ?>
+  <meta charset="<?= Yii ::$app -> charset ?>">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <?php $this -> registerCsrfMetaTags() ?>
+  <title><?= Html ::encode($this -> title) ?></title>
+  <?php $this -> head() ?>
 </head>
-<body>
-<?php $this->beginBody() ?>
+<body class="pt-50">
+<?php $this -> beginBody() ?>
 
 <div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    $menuItems = [
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
-    ];
-    if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-        $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
-    } else {
-        $menuItems[] = '<li>'
-            . Html::beginForm(['/site/logout'], 'post')
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
-            )
-            . Html::endForm()
-            . '</li>';
-    }
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => $menuItems,
-    ]);
-    NavBar::end();
-    ?>
+  <?php
+  NavBar ::begin([
+    'brandLabel' => Yii ::$app -> name,
+    'brandUrl' => Yii ::$app -> homeUrl,
+    // 'brandLabel' => ['style' => 'color:red;font-size:18px'],
+    'options' => [
+      'class' => 'navbar-inverse navbar-fixed-top',
+    ],
+  ]);
+  
+  $leftItems = [
+    ['label' => '文章管理', 'url' => ['/post/index']],
+    ['label' => '后端开发', 'url' => ['/site/about']],
+    ['label' => '项目经理', 'url' => ['/site/index']],
+    ['label' => '全栈架构', 'url' => ['/site/fullstack']],
+    ['label' => '帮你学会', 'url' => ['/site/contact']],
+  ];
 
-    <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= Alert::widget() ?>
-        <?= $content ?>
-    </div>
+  // 如果是个访客，显示登录注册
+  if (Yii ::$app -> user -> isGuest) {
+    $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
+    $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+  } else {
+    $menuItems[] = [
+      'label' => '<img src="' . $avatar . '" alt="' . $user . '"/>',
+      'linkOptions' => ['class' => 'avatar'],
+      'items' => [
+        [
+          'label' => '<i class="i-person"></i> 会员中心',
+          'url' => ['site/logout'],
+        ],
+        [
+          'label' => '<i class="i-log-out"></i> 个人中心',
+          'url' => ['site/logout'],
+        ],
+        [
+          'label' => '<i class="i-log-out"></i> 退出',
+          'url' => ['site/logout'],
+          'linkOptions' => ['data-method' => 'post']
+        ],
+      ]
+    ];
+  }
+
+  echo Nav ::widget([
+    'options' => ['class' => 'navbar-nav navbar-left'],
+    'items' => $leftItems,
+  ]);
+  echo Nav ::widget([
+    'options' => ['class' => 'navbar-nav pull-right'],
+    'encodeLabels' => false, // 不转义HTML，显示代码
+    'items' => $menuItems
+  ]);
+  NavBar ::end();
+  ?>
+  
+  <div class="container">
+    <?= Breadcrumbs ::widget([
+      'links' => isset($this -> params['breadcrumbs']) ? $this -> params['breadcrumbs'] : [],
+    ]) ?>
+    <?= Alert ::widget() ?>
+    <?= $content ?>
+  </div>
 </div>
 
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
-
-<?php $this->endBody() ?>
+<?php $this -> endBody() ?>
 </body>
 </html>
-<?php $this->endPage() ?>
+<?php $this -> endPage() ?>
