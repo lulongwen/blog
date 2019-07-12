@@ -6,6 +6,8 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\Post */
 
+
+
 $this -> title = $model -> title;
 $this -> params['breadcrumbs'][] = ['label' => '文章', 'url' => ['index']];
 $this -> params['breadcrumbs'][] = $this -> title;
@@ -32,22 +34,25 @@ $this -> params['breadcrumbs'][] = $this -> title;
     'attributes' => [
       'id',
       'title',
-      'summary:ntext',
+      'summary:ntext', // 设置内容显示的格式
       'content:ntext',
       'thumbnail',
-      'userid',
-      // [
-      //   'attribute' => 'userid',
-      //   'label' => '作者ID',
-      //   'value'=> $model->user->nickname
-      // ],
-      'username',
-      'categoryid',
-      'status',
-      // [
-      //   'label' => '状态',
-      //   'value' => $model->status0->name,
-      // ],
+      // 'userid',
+      // 'status',
+      // 'categoryid',
+      [
+        // 'attribute' => 'userid',
+        'label' => '作者ID', // 覆盖 attributeLabel
+        'value'=> $model->user->username
+      ],
+     [
+       'attribute' => 'categoryid',
+       'value' => $model->category->name
+     ],
+      [
+        'label' => '状态',
+        'value' => $model->status ? '已发布' : '草稿',
+      ],
       // 'created_at',
       // 'updated_at',
       // 'deleted_at',
@@ -60,6 +65,9 @@ $this -> params['breadcrumbs'][] = $this -> title;
         'value'=> date('Y-m-d H:i:s', $model->updated_at)
       ]
     ],
+    'template' => '<tr><th style="width: 120px;">{label}</th><td>{value}</td></tr>',
+    // 设置 table的 class
+    'options' => ['class' => 'table table-striped table-bordered table-hover']
   ]) ?>
 
 </>

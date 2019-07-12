@@ -76,6 +76,10 @@ class PostController extends Controller
   public function actionCreate()
   {
     $model = new Post();
+  
+    // 业务逻辑尽量避免放在控制器中间
+    // $model-> created_at = time();
+    // $model-> updated_at = time();
     
     if ($model -> load(Yii ::$app -> request -> post()) && $model -> save()) {
       return $this -> redirect(['view', 'id' => $model -> id]);
@@ -96,6 +100,9 @@ class PostController extends Controller
   public function actionUpdate($id)
   {
     $model = $this -> findModel($id);
+    // 更新时，把更新时间设置为当前时间，当执行 save时，保存的就是当前时间
+    // 业务逻辑尽量避免放在控制器中间，应该放在模型文件中 Model
+    // $model-> updated_at = time();
     
     if ($model -> load(Yii ::$app -> request -> post()) && $model -> save()) {
       return $this -> redirect(['view', 'id' => $model -> id]);

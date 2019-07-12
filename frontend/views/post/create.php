@@ -5,16 +5,12 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\Post */
 
-$this->title = 'Create Post';
-$this->params['breadcrumbs'][] = ['label' => 'Posts', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this -> title = '创建文章';
+$this -> params['breadcrumbs'][] = ['label' => '文章列表', 'url' => ['index']];
+$this -> params['breadcrumbs'][] = $this -> title;
 ?>
-<div class="post-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<h1><?= Html ::encode($this -> title) ?></h1>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
+<?= $this -> render('_form', ['model' => $model]) ?>
 
-</div>

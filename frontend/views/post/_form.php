@@ -3,77 +3,56 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use bizley\quill\Quill;
-use common\widgets\file_upload\FileUpload;
+use mludvik\tagsinput\TagsInputWidget;
+
+// use common\widgets\file_upload\FileUpload;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\Post */
-/* @var $form yii\widgets\ActiveForm */
+
+// all() 返回对象 column 返回列数据
+$category = \common\models\Category::find()
+  -> select(['name', 'id'])
+  -> orderBy('sort')-> indexBy('id')-> column();
+
+$user = \common\models\User::find()
+  -> select(['username', 'id'])
+  -> indexBy('id')-> column();
+
+$status = ['0' => '草稿', '1' => '已发布', '2' => '已归档'];
+
+// 创建时间和更新时间应该有系统自动创建，不需要显示
+//  <?= $form -> field($model, 'created_at') -> textInput()
+
 ?>
-<style>
-.quill-height {
-    min-height: 600px;
-    height: auto;
-  }
-  .ql-container {
-    height: calc(600px - 42px);
-    border-radius: 0;
-  }
-  </style>
 <div class="post-form">
+  
+  <?php $form = ActiveForm ::begin(); ?>
+  
+  <?= $form -> field($model, 'title') -> textInput(['maxlength' => true, 'autofocus' => true]) ?>
+  
+  <?= $form -> field($model, 'summary') -> textarea(['rows' => 6]) ?>
+  
+  <?= $form->field($model, 'tags')->widget(TagsInputWidget::className()) ?>
+  
+  <?= $form -> field($model, 'userid') ->
+  dropDownList($user, ['prompt' => '请选择作者'])?>
+  
+  <?= $form -> field($model, 'categoryid') ->
+  dropDownList($category, ['prompt' => '请选择分类']) ?>
+  
+  <?= $form -> field($model, 'status') -> radioList($status)?>
+  
+  <?= $form -> field($model, 'content') -> textarea(['rows' => 6]) ?>
+  
+  
+  <?= $form -> field($model, 'thumbnail') -> textInput(['maxlength' => true]) ?>
 
-    <?php $form = ActiveForm::begin(); ?>
-
-    <?= $form->field($model, 'title')->textInput(['maxlength' => true, 'autofocus' => true]) ?>
-
-    <?= $form->field($model, 'summary')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'userid')->textInput() ?>
-
-    <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'categoryid')->textInput() ?>
-
-    <?= $form->field($model, 'categoryid')->dropDownList($cate) ?>
-
-    <?= $form->field($model, 'tag')->widget(\aminkt\widgets\inputTag\InputTag::className(), [
-      'options'=>[
-        'maxlength' => true,
-        'class'=>'form-control maxlength-handler'
-      ]
-    ]) ?>
-
-    <?= $form->field($model, 'status')->textInput() ?>
-
-    <?= $form->field($model, 'status')->inline(true)->radioList(['0'=>'不发布','1'=>'发布']) ?>
-
-    <?= $form->field($model, 'content')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'content', [
-      'options' => [
-        'class' => 'quill-height',
-      ]
-    ])->widget(Quill::className(), []) ?>
-
-  <?= $form->field($model, 'thumbnail')-> widget('common\widgets\file_upload\FileUpload',
-        [
-        'config' => [
-          //图片上传的一些配置，不写调用默认配置
-          // 'domain_url' => '/images',
-        ]
-      ]) ?>
-
-<?= $form->field($model, 'thumbnail')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'updated_at')->textInput() ?>
-
-    <?= $form->field($model, 'deleted_at')->textInput() ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
+  
+  <div class="form-group">
+    <?= Html ::submitButton($model->isNewRecord ? '创建' :'修改', ['class' => 'btn btn-success']) ?>
+  </div>
+  
+  <?php ActiveForm ::end(); ?>
 
 </div>
