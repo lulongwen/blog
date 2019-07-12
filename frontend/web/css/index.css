@@ -99,3 +99,12 @@ a.desc:after {
       font-weight: 600;
       text-transform: uppercase;
       text-align: center; }
+
+.quill-height {
+  min-height: 600px;
+  height: auto;
+}
+.ql-container {
+  height: calc(600px - 42px);
+  border-radius: 0;
+}

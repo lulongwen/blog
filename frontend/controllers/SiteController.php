@@ -51,9 +51,7 @@ class SiteController extends Controller
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
     public function actions()
     {
         return [
@@ -67,21 +65,29 @@ class SiteController extends Controller
         ];
     }
 
-    /**
-     * Displays homepage.
-     *
-     * @return mixed
-     */
+
     public function actionIndex()
     {
         return $this->render('index');
     }
 
-    /**
-     * Logs in a user.
-     *
-     * @return mixed
-     */
+
+    // 添加留言
+    public function actionChatCreate() {
+      $model = new Chat();
+      $model-> content = Yii::$app-> request-> post('content');
+      // 保存成功
+      if ($model-> validate()) {
+        if ($model-> create()) {
+          return json_encode(['status' => true]);
+        }
+      }
+      
+      return json_decode(['status' => false, 'message' => '状态发布失败']);
+    }
+
+
+    
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
@@ -98,6 +104,22 @@ class SiteController extends Controller
                 'model' => $model,
             ]);
         }
+    }
+
+
+    // 登录页
+    public function actionLogin2() {
+      $model = new Fans();
+      if (Yii::$app->request->isPost) {
+        $post = Yii::$app->request->post();
+        if ($model->login($post)) {
+          Yii::$app->session->setFlash('info', '添加成功');
+        }
+      }
+  
+      // $model->userpass = '';
+      // $model->repass = '';
+      return $this->render("login", ['model' => $model]);
     }
 
     /**

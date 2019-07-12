@@ -65,6 +65,57 @@ class Post extends \yii\db\ActiveRecord
   }
 
 
+  // 文章表和标签表的关联关系
+  public function getRelate() {
+    return $this-> hasMany(PosTag::className(), ['post_id' => 'id']);
+  }
+  
+  // 获取文章评论
+  public function getComment() {
+    return $this-> hasOne(CommentModel::className(), ['post_id' => 'id']);
+  }
+
+
+
+  // 获取分页
+  public function getPages($query, $page=1, $pageSize=10, $search=null) {
+    if ($search) {
+      $query = $query-> andFilerWhere($search);
+    }
+
+    $data['count'] = $query-> count();
+    if (!$data['count']) {
+      return [
+        'count' => 0,
+        'page' => $page,
+        'pageSize' => $pageSize,
+        'start' => 0,
+        'end' => 0,
+        'data' => []
+      ];
+    }
+    
+    // 超过实际页数，不取 page为当前页
+    $page = (ceil($data['count'] / $pageSize) < $page)
+      ? ceil($data['count'] / $pageSize) : $page;
+    
+    // 当前页
+    $data['page'] = $page;
+    // 每页显示条数，起始页，末页
+    $data['pageSize'] = $pageSize;
+    $data['start'] = ($page -1) * $pageSize +1;
+    $data['end'] = (ceil($data['count'] / $pageSize) == $page)
+      ? $data['count'] : ($page -1) * $pageSize + $pageSize;
+    
+    $data['data'] = $query-> offset(($page-1) * $pageSize)
+      -> limit($pageSize) -> asArray()-> all();
+    
+    return $data;
+  }
+
+
+
+
   // 重写 beforeSave方法，提交数据库保存之前，先赋值
   public function beforeSave($insert) {
     // 调用父类的方法，保证原先的代码会执行
@@ -82,6 +133,7 @@ class Post extends \yii\db\ActiveRecord
 
     return false;
   }
+
   
   
   public function getStatus0() {
