@@ -37,6 +37,7 @@ $this -> params['breadcrumbs'][] = $this -> title;
       'summary:ntext', // 设置内容显示的格式
       'content:ntext',
       'thumbnail',
+      'tags',
       // 'userid',
       // 'status',
       // 'categoryid',

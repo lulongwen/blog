@@ -16,13 +16,14 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
 
+
 class PostController extends Controller
 {
   // 行为过滤，比如，不能录不能发布文章
   public function behaviors()
   {
     return [
-      'access' => [
+      /*'access' => [
         'class' => AccessControl::className(),
         'only' => ['index', 'create', 'upload'],
         'rules' => [
@@ -37,7 +38,7 @@ class PostController extends Controller
             'roles' => ['@'],
           ],
         ],
-      ],
+      ],*/
 
       'verbs' => [
         'class' => VerbFilter ::className(),
@@ -59,6 +60,16 @@ class PostController extends Controller
         'class' => 'common\widgets\file_upload\UploadAction',
         'config' => [
           'imagePathFormat' => "/images/{yyyy}{mm}{dd}/{time}{rand:6}",
+        ]
+      ],
+  
+      'ueditor'=>[
+        'class' => 'common\widgets\ueditor\UeditorAction',
+        'config'=>[
+          //上传图片配置, 图片访问路径前缀
+          'imageUrlPrefix' => "",
+          //  上传保存路径,可以自定义保存路径和文件名格式
+          'imagePathFormat' => "/image/{yyyy}{mm}{dd}/{time}{rand:6}",
         ]
       ]
     ];
@@ -104,6 +115,10 @@ class PostController extends Controller
   public function actionCreate()
   {
     $model = new Post();
+    
+    // 获取所有分类
+    $category = Category::getAllCategory();
+    // return $this-> render('create', ['model' => $model, 'cate' => $category]);
   
     // 业务逻辑尽量避免放在控制器中间
     // $model-> created_at = time();
@@ -168,8 +183,11 @@ class PostController extends Controller
     // $model-> updated_at = time();
     
     if ($model -> load(Yii ::$app -> request -> post()) && $model -> save()) {
+      // echo '<pre>';
+      // var_dump($model); exit();
       return $this -> redirect(['view', 'id' => $model -> id]);
     }
+  
     
     return $this -> render('update', [
       'model' => $model,

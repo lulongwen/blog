@@ -152,8 +152,8 @@ class PostForm extends Model {
       // $model-> summary = $this-> _getSummary(); // 如果没有描述，截取前120个字符
       $model-> userid = Yii::$app-> user-> identity-> id;
       $model-> username = Yii::$app-> user-> identity-> username;
-      $model-> created_at = time();
-      $model-> updated_at = time();
+      // $model-> created_at = time();
+      // $model-> updated_at = time();
 
       if (!$model-> save()) throw new \Exception('文章保存失败'. $model-> getErrors());
 

@@ -22,22 +22,20 @@ use yii\helpers\Html;
  */
 class Post extends \yii\db\ActiveRecord
 {
-  private $oldTag;
-  public $tags;
-
+  private $_oldTags; // 声明一个私有变量
+  // public $tags;
+  
   public static function tableName()
   {
     return '{{%post}}';
   }
   
-  /**
-   * {@inheritdoc}
-   */
+
   public function rules()
   {
     return [
       [['title', 'content', 'status'], 'required'],
-      [['summary', 'content'], 'string'],
+      [['summary', 'content', 'tags'], 'string'],
       [['userid', 'categoryid', 'status', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
       [['title'], 'string', 'max' => 200],
       [['thumbnail'], 'string', 'max' => 120],
@@ -45,7 +43,6 @@ class Post extends \yii\db\ActiveRecord
     ];
   }
   
-
   public function attributeLabels()
   {
     return [
@@ -63,27 +60,27 @@ class Post extends \yii\db\ActiveRecord
       'deleted_at' => '删除时间',
     ];
   }
-
-
+  
   // 文章表和标签表的关联关系
-  public function getRelate() {
-    return $this-> hasMany(PosTag::className(), ['post_id' => 'id']);
+  public function getRelate()
+  {
+    return $this -> hasMany(PosTag ::className(), ['post_id' => 'id']);
   }
   
   // 获取文章评论
-  public function getComment() {
-    return $this-> hasOne(CommentModel::className(), ['post_id' => 'id']);
+  public function getComment()
+  {
+    return $this -> hasOne(CommentModel ::className(), ['post_id' => 'id']);
   }
-
-
-
+  
   // 获取分页
-  public function getPages($query, $page=1, $pageSize=10, $search=null) {
+  public function getPages($query, $page = 1, $pageSize = 10, $search = null)
+  {
     if ($search) {
-      $query = $query-> andFilerWhere($search);
+      $query = $query -> andFilerWhere($search);
     }
-
-    $data['count'] = $query-> count();
+    
+    $data['count'] = $query -> count();
     if (!$data['count']) {
       return [
         'count' => 0,
@@ -96,129 +93,122 @@ class Post extends \yii\db\ActiveRecord
     }
     
     // 超过实际页数，不取 page为当前页
-    $page = (ceil($data['count'] / $pageSize) < $page)
-      ? ceil($data['count'] / $pageSize) : $page;
+    $page = (ceil($data['count'] / $pageSize) < $page) ? ceil($data['count'] / $pageSize) : $page;
     
     // 当前页
     $data['page'] = $page;
     // 每页显示条数，起始页，末页
     $data['pageSize'] = $pageSize;
-    $data['start'] = ($page -1) * $pageSize +1;
-    $data['end'] = (ceil($data['count'] / $pageSize) == $page)
-      ? $data['count'] : ($page -1) * $pageSize + $pageSize;
+    $data['start'] = ($page - 1) * $pageSize + 1;
+    $data['end'] = (ceil($data['count'] / $pageSize) == $page) ? $data['count'] : ($page - 1) * $pageSize + $pageSize;
     
-    $data['data'] = $query-> offset(($page-1) * $pageSize)
-      -> limit($pageSize) -> asArray()-> all();
+    $data['data'] = $query -> offset(($page - 1) * $pageSize) -> limit($pageSize) -> asArray() -> all();
     
     return $data;
   }
-
-
-
-
+  
   // 重写 beforeSave方法，提交数据库保存之前，先赋值
-  public function beforeSave($insert) {
+  public function beforeSave($insert)
+  {
     // 调用父类的方法，保证原先的代码会执行
-    if (parent::beforeSave($insert)) {
+    if (parent ::beforeSave($insert)) {
       // 新增的时候，2个时间都赋值
       if ($insert) {
-        $this-> created_at = time();
-        $this-> updated_at = time();
+        $this -> created_at = time();
       }
-      else {
-        $this-> updated_at = time();
-      }
+      $this -> updated_at = time();
       return true;
     }
-
+    
     return false;
   }
-
   
-  
-  public function getStatus0() {
+  public function getStatus0()
+  {
     // className() 表名，第二个参数，关联的条件
-    return $this-> hasOne(PostStatus::className(), ['id' => 'status']);
+    return $this -> hasOne(PostStatus ::className(), ['id' => 'status']);
   }
   
-  public function getStatus2() {
+  public function getStatus2()
+  {
     return '已发布';
   }
-
-
-  public function getUser() {
-    return $this-> hasOne(User::className(), ['id' => 'userid']);
+  
+  public function getUser()
+  {
+    return $this -> hasOne(User ::className(), ['id' => 'userid']);
   }
   
-  public function getCategory() {
-    return $this-> hasOne(Category::className(), ['id'=> 'categoryid']);
+  public function getCategory()
+  {
+    return $this -> hasOne(Category ::className(), ['id' => 'categoryid']);
   }
-
-
-  public function getComments() {
-    return $this-> hasMany(Comment::className(), ['postid' => 'id']);
+  
+  public function getComments()
+  {
+    return $this -> hasMany(Comment ::className(), ['postid' => 'id']);
   }
-
-
-  public function getCommentCount() {
-    return Comment::find()-> where(['postid' => $this->id, 'status' => 2])-> count();
+  
+  public function getCommentCount()
+  {
+    return Comment ::find() -> where(['postid' => $this -> id, 'status' => 2]) -> count();
   }
-
-
-  public function getActiveComments() {
-    return $this-> hasMany(Comment::className(), ['postid' => 'id'])
-      -> where('status= :status', [':status' => 1])
-      -> orderBy('id DESC');
+  
+  public function getActiveComments()
+  {
+    return $this -> hasMany(Comment ::className(), ['postid' => 'id']) -> where('status= :status',
+        [':status' => 1]) -> orderBy('id DESC');
   }
-
-
-  // public function afterFind() {
-  //   // TODO: Change the autogenerated stub
-  //   parent::afterFind();
-  //   $this-> oldTag = $this-> tags;
-  // }
-
-
-  // public function afterSave($insert, $changedAttributes) {
-  //   // TODO: Change the autogenerated stub
-  //   parent::afterSave($insert, $changedAttributes);
-  //   Tag::updateFrequency($this-> oldTag, $this->tags);
-  // }
-
-
-  // public function afterDelete() {
-  //   parent::afterDelete(); // TODO: Change the autogenerated stub
-  //
-  //   Tag::updateFrequency($this-> tags, '');
-  // }
-
-
-  public function getUrl() {
-    $params = ['post/detail', 'id' => $this->id, 'title' => $this->title];
-    return Yii::$app-> urlManager-> createUrl($params);
+  
+  // 现将修改前的标签 保存到 _oldTags
+  public function afterFind() {
+    // TODO: Change the autogenerated stub
+    // 重写方法时，都要调用父类的同名方法
+    parent::afterFind();
+    $this-> _oldTags = $this-> tags;
   }
-
-
-  public function getTagLink() {
+  
+  
+  public function afterSave($insert, $changedAttributes) {
+    // TODO: Change the autogenerated stub
+    parent::afterSave($insert, $changedAttributes);
+    Tag::updateFrequency($this-> _oldTags, $this->tags);
+  }
+  
+  
+  public function afterDelete() {
+    parent::afterDelete(); // TODO: Change the autogenerated stub
+    // 删除后更新标签，newtag为 空字符串
+    Tag::updateFrequency($this-> tags, '');
+  }
+  
+  
+  public function getUrl()
+  {
+    $params = ['post/detail', 'id' => $this -> id, 'title' => $this -> title];
+    return Yii ::$app -> urlManager -> createUrl($params);
+  }
+  
+  public function getTagLink()
+  {
     $links = [];
-    $tags = Tag::string2array($this->tags);
-    foreach($tags as $tag) {
-      $links[] = Html::a(Html::encode($tag), ['post/index', 'PostSearch[tags]' => $tag]);
+    $tags = Tag ::string2array($this -> tags);
+    foreach ($tags as $tag) {
+      $links[] = Html ::a(Html ::encode($tag), ['post/index', 'PostSearch[tags]' => $tag]);
     }
-
+    
     return $links;
   }
-
-
+  
   // 截取字符串长度
-  public function getBeginning($length=288) {
-    $str = strip_tags($this->content);
+  public function getBeginning($length = 288)
+  {
+    $str = strip_tags($this -> content);
     $temp = mb_strlen($str);
     $str = mb_substr($str, 0, $length, 'utf-8');
-
-    return $str.(($temp > $length) ? '...' : '');
+    
+    return $str . (($temp > $length) ? '...' : '');
   }
-
 }
 
 
