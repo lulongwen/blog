@@ -5,122 +5,66 @@
    * Date: 2019-06-03
    * Time: 21:28
    */
+
   // use Yii; Yii::$app-> params['upload_url'] .$list['thumbnail']
   use yii\helpers\Url;
   use yii\widgets\LinkPager;
-  
-?>
-<style>
-  .post-item {
-    position: relative;
-    padding: 0 16px 0 210px;
-    height: 150px;
-    background: rgba(240, 240, 240, 0.23);
-    margin-bottom: 16px;
-  }
-  .post-item:last-child {
-    margin-bottom: 0;
-  }
-  .post-item h2{
-    margin: 10px 0;
-    font-size: 18px;
-  }
-  .post-item h2 a, .post-item .aside a{
-    color: inherit;
-  }
-  .post-item .aside {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-  .post-item img {
-    display: block;
-    margin-bottom: 5px;
-  }
-  .post-item .aside strong {
-    font-weight: 500;
-    font-size: 12px
-  }
-  .post-item p {
-    display: -webkit-box;
-    height: 40px;
-    margin: 10px 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-  }
-</style>
 
-<section class="">
-  <header class="">
-    <?= $data['title'] ?>
-    <?php if ($this-> context-> more):?>
-      <a href="<?= $data['more'] ?>" class="small">更多</a>
-    <?php endif;?>
-  </header>
-  
-  <?php foreach ($data['body'] as $key => $list): ?>
-    <section class="post-item">
-      <h2>
-        <a href="<?= Url::to(['post/detail', 'id' => $list['id']])?>">
-          <?= $list['title'] ?>
-        </a>
-      </h2>
-      <nav class="nav">
+?>
+
+<header class="">
+  <?= $data['title'] ?>
+  <?php if ($this->context->more): ?>
+    <a href="<?= $data['more'] ?>" class="small">更多</a>
+  <?php endif; ?>
+</header>
+
+<?php foreach ($data['body'] as $key => $list): ?>
+  <section class="post-item">
+    <h2>
+      <a href="<?= Url::to(['post/detail', 'id' => $list['id']]) ?>">
+        <?= $list['title'] ?>
+      </a>
+    </h2>
+    <nav class="nav">
           <span>作者：
-            <a href="<?=Url::to(['member/index','id'=>$list['author_id']])?>">
-              <?= $list['username']?>
+            <a href="<?= Url::to(['member/index', 'id' => $list['userid']]) ?>">
+              <?= $list['username'] ?>
             </a>
           </span>
-        <span> 浏览量：
-            <?= isset($list['comment']['pv']) ? $list['comment']['pv'] : 0?>
+      <span> 浏览量：
+            <?= isset($list['comment']['pv']) ? $list['comment']['pv'] : 0 ?>
           </span>
-        <span>留言：
-            <a href="<?Url::to(['post/detail', 'id' => $list['id']])?>"></a>
+      <span>留言：
+            <a href="<? Url::to(['post/detail', 'id' => $list['id']]) ?>"></a>
             <?= isset($list['comment']['content']) ? $list['comment']['content'] : 0 ?>
           </span>
-        <span>发布时间：<?= date('Y-m-d h:i:s', $list['created_at']) ?></span>
-      </nav>
-      <p><?= $list['summary']?></p>
-      
-      <aside class="aside">
-        <img width="200"
-          src="<?= ($list['thumbnail']
-            ? $list['thumbnail'] : Yii::$app-> params['defaultImage']) ?>"
-          alt="<?= $list['title'] ?>">
-        
-        <!-- 文章标签 -->
-        <footer>
-          <i class="i-pricetags"></i>
-          <?php if (!empty($list['tag'])): ?>
-            <?php foreach($list['tag'] as $tag): ?>
-              <a href="#"><strong><?= $tag ?></strong></a>
-            <?php endforeach; ?>
-          <?php endif; ?>
-        </footer>
-      </aside>
-      <a class="btn btn-sm btn-success" href="<?=Url::to(['post/detail','id'=>$list['id']])?>">阅读全文</a>
-    </section>
-  <?php endforeach ?>
-  
-  <?php if($this-> context-> page):?>
+      <span>发布时间：<?= date('Y-m-d h:i:s', $list['created_at']) ?></span>
+    </nav>
+    <p><?= $list['summary'] ?></p>
+
+    <aside class="aside">
+      <img width="200"
+           src="<?= ($list['thumbnail']
+             ? $list['thumbnail'] : Yii::$app->params['defaultImage']) ?>"
+           alt="<?= $list['title'] ?>">
+
+      <!-- 文章标签 -->
+      <footer>
+        <i class="i-pricetags"></i>
+        <?php if (!empty($list['tag'])): ?>
+          <?php foreach ($list['tag'] as $tag): ?>
+            <a href="#"><strong><?= $tag ?></strong></a>
+          <?php endforeach; ?>
+        <?php endif; ?>
+      </footer>
+    </aside>
+    <a class="btn btn-sm btn-success" href="<?= Url::to(['post/detail', 'id' => $list['id']]) ?>">阅读全文</a>
+  </section>
+<?php endforeach ?>
+
+<?php if ($this->context->page): ?>
   <div class="text-right">
-    <?= LinkPager::widget(['pagination'=> $data['page']]); ?>
+    <?= LinkPager::widget(['pagination' => $data['page']]); ?>
   </div>
-  <?php endif;?>
-</section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<?php endif; ?>

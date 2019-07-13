@@ -6,9 +6,9 @@
    * Time: 21:28
    */
   namespace frontend\widgets\post;
-  
-  use frontend\models\Post;
+
   use Yii;
+  use common\models\Post;
   use yii\bootstrap\Widget;
   use yii\data\Pagination;
   use yii\helpers\Url;

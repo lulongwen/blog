@@ -7,16 +7,6 @@
    */
   use yii\helpers\Url;
   ?>
-<style>
-  .arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 30px;
-  }
-  .arrow.i-return-left {left: 15px}
-  .arrow.i-return-right {right: 15px}
-</style>
 
 <div class="panel">
   <div class="carousel slide" id="carousel">
@@ -46,19 +36,3 @@
     </a>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

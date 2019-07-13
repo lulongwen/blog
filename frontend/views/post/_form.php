@@ -14,7 +14,7 @@ $form -> field($model, 'content', [
 /* @var $model common\models\Post */
 
 // all() 返回对象 column 返回列数据
-$category = \common\models\Category ::find() -> select(['name', 'id']) -> orderBy('sort') -> indexBy('id') -> column();
+$category = \common\models\Category ::find() -> select(['name', 'id']) -> orderBy('position') -> indexBy('id') -> column();
 
 $user = \common\models\User ::find() -> select(['username', 'id']) -> indexBy('id') -> column();
 

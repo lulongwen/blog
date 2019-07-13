@@ -8,53 +8,6 @@
   use yii\helpers\Url;
 
 ?>
-<style>
-  header.panel-body {
-    position: relative;
-    margin: 0;
-    padding: 10px;
-    font-size: 14px;
-    background-color: #d6e9c6;
-  }
-  header.panel-body small {
-    position: absolute;
-    top: 12px;
-    right: 10px;
-  }
-  
-  nav.chat {
-    position: relative;
-    padding-right: 53px;
-    margin-bottom: 16px;
-  }
-  nav.chat .form-control {
-    border-radius: 4px 0 0 4px;
-  }
-  nav.chat .btn {
-    position: absolute;
-    top: 0;
-    right: 0;
-    border-radius: 0 4px 4px 0;
-  }
-  
-  .chat-list {
-    margin-bottom: 16px;
-    padding-left: 45px;
-    position: relative;
-  }
-  .chat-list:last-child {
-    margin-bottom: 0;
-  }
-  .chat-list h6 {
-    margin: 5px 0;
-  }
-  .chat-list .img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 40px;
-  }
-</style>
 
 <section class="panel panel-success">
   <header class="panel-body">
@@ -72,7 +25,7 @@
         <section class="chat-list">
           <h6><?= $list['content'] ?></h6>
           <img class="img"  alt=""
-            src="<?= ($list['user']['avatar'] ?: '/Blog/frontend/web/images/default/avatar.png') ?>">
+            src="<?= ($list['user']['avatar'] ?: Yii::$app-> params['avatar']['image']) ?>">
           <footer><?= date('Y-m-d h:i:s', $list['created_at']) ?></footer>
         </section>
       <?php endforeach ?>
@@ -102,22 +55,3 @@
   })();
 
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

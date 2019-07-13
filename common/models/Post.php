@@ -209,6 +209,45 @@ class Post extends \yii\db\ActiveRecord
     
     return $str . (($temp > $length) ? '...' : '');
   }
+
+
+
+
+  // PostForm
+  // 获取文章数据
+  public static function getList($where, $page=1, $pageSize=5, $orderBy=['id' => SORT_DESC]) {
+    $model = new Post();
+    // 查询的字段, 查询语句
+    $select = ['id', 'title', 'summary', 'thumbnail', 'categoryid',
+      'userid', 'username', 'status', 'created_at', 'updated_at'];
+
+    $query = $model-> find() -> select($select)
+      -> where($where)// -> with('relate.tag', 'comment')
+      -> orderBy($orderBy);
+
+    // 获取分页数据，格式化数据
+    $res = $model-> getPages($query, $page, $pageSize);
+    $res['data'] = self::_formatList($res['data']);
+
+    return $res;
+  }
+
+  // 格式化数据 &$item
+  private static function _formatList($data) {
+    foreach($data as &$item) {
+      $item['tag'] = [];
+      if (isset($item['relate']) && !empty($item['relate'])) {
+        foreach($item['relate'] as $tag) {
+          $item['tag'][] = $tag['tag']['name'];
+        }
+      }
+
+      // 遍历完成后删除格式化前的字段,关联的数据表
+      unset($item['relate']);
+    }
+
+    return $data;
+  }
 }
 
 

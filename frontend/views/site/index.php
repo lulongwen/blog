@@ -11,12 +11,15 @@ $this->title = '卢珑文的博客';
   <div class="col-md-9">
     <!-- 图片轮播，文章列表  -->
     <?= BannerWidget::widget() ?>
-    <?//= PostWidget::widget() ?>
+
+    <?= PostWidget::widget() ?>
   </div>
   
   <div class="col-md-3">
     <!-- 留言板，热门浏览   -->
-    <?//= ChatWidget::widget() ?>
-    <?//= HotWidget::widget(['title' => '浸提消息']) ?>
+    <?= ChatWidget::widget() ?>
+
+    <!-- widget(['title' => '浸提消息']) -->
+    <?= HotWidget::widget() ?>
   </div>
 </div>

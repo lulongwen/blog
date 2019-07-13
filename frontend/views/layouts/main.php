@@ -10,7 +10,8 @@ use frontend\assets\AppAsset;
 use common\widgets\Alert;
 
 $avatar = Yii ::$app -> params['avatar']['image'];
-$user = Yii ::$app -> user -> identity -> username;
+
+
 
 AppAsset ::register($this);
 ?>
@@ -53,7 +54,7 @@ AppAsset ::register($this);
     $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
   } else {
     $menuItems[] = [
-      'label' => '<img src="' . $avatar . '" alt="' . $user . '"/>',
+      'label' => '<img src="' . $avatar . '" alt="' . Yii ::$app -> user -> identity -> username . '"/>',
       'linkOptions' => ['class' => 'avatar'],
       'items' => [
         [

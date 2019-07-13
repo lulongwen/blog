@@ -1,5 +1,10 @@
 @charset "utf-8";
+
 @import 'variables';
 @import 'public.scss';
 
 @import 'login';
+
+@import './views/index';
+@import './views/chat';
+@import './views/hot';

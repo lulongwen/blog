@@ -4,8 +4,8 @@ namespace frontend\widgets\hot;
  * 热门浏览组件
  */
 use Yii;
-use common\models\CommentModel;
-use common\models\PostModel;
+use common\models\Post;
+use common\models\PostStatus;
 
 use yii\base\Widget;
 use yii\helpers\Url;
@@ -16,12 +16,12 @@ class HotWidget extends Widget {
     public $limit = 8; // 显示条数
     
     public function run() {
-      // a CommentModel，b PostModel
+      // a Comment，b Post
       $res = (new Query())
         ->select('a.pv, b.id, b.title')
-        ->from(['a'=>CommentModel::tableName()])
+        ->from(['a'=>PostStatus::tableName()])
           // 左链接， where 条件 orderBy 排序 浏览量并且 id，防止重复
-        ->join('LEFT JOIN',['b'=> PostModel::tableName()],'a.post_id = b.id')
+        ->join('LEFT JOIN',['b'=> Post::tableName()],'a.postid = b.id')
         ->where('b.status = 1')
         ->orderBy('pv DESC, id DESC')
         ->limit($this->limit)
@@ -29,7 +29,7 @@ class HotWidget extends Widget {
         
         // $data['title'] = $this->title?: '热门浏览';
         $data['title'] = $this->title;
-        $data['body'] = $res?:[];
+        $data['body'] = $res ?: [];
         // $data['more'] = Url::to(['post/index','sort'=>'hot']);
         
         return $this->render('index',['data'=> $data]);
