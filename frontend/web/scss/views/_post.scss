@@ -1,0 +1,40 @@
+.post-items {
+  margin-bottom: 20px;
+  padding: 20px;
+  background: rgba(245, 245, 245, 0.3);
+  &:last-of-type{
+    margin-bottom: 0;
+  }
+
+  .title {
+    margin: 10px 0;
+    font-size: 18px;
+    font-weight: 600;
+    word-break: break-all;
+    word-wrap: break-word;
+  }
+
+  .subtags {
+    span {
+      padding-right: 15px;
+    }
+  }
+
+  .content {
+    height: 60px;
+    margin-bottom: 10px;
+    overflow: hidden;
+  }
+}
+
+
+.footer-pager {
+  text-align: right;
+  height: 75px;
+  position: relative;
+  .summary {
+    position: absolute;
+    top: 20px;
+    left: 15px;
+  }
+}

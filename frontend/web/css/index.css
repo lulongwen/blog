@@ -9,6 +9,9 @@
 .pt-50 {
   padding-top: 50px; }
 
+.pt-65 {
+  padding-top: 65px; }
+
 html,
 body {
   height: 100%; }
@@ -256,5 +259,73 @@ nav.chat .btn {
   background-color: #5db85b;
   color: #fff;
   margin-bottom: 5px; }
+
+.post-items {
+  margin-bottom: 20px;
+  padding: 20px;
+  background: rgba(245, 245, 245, 0.3); }
+  .post-items:last-of-type {
+    margin-bottom: 0; }
+  .post-items .title {
+    margin: 10px 0;
+    font-size: 18px;
+    font-weight: 600;
+    word-break: break-all;
+    word-wrap: break-word; }
+  .post-items .subtags span {
+    padding-right: 15px; }
+  .post-items .content {
+    height: 60px;
+    margin-bottom: 10px;
+    overflow: hidden; }
+
+.footer-pager {
+  text-align: right;
+  height: 75px;
+  position: relative; }
+  .footer-pager .summary {
+    position: absolute;
+    top: 20px;
+    left: 15px; }
+
+.tags-input {
+  padding-top: 3px;
+  padding-bottom: 3px; }
+  .tags-input .tag {
+    display: inline-block;
+    background: #EEE;
+    color: #444;
+    padding: 0 4px;
+    margin: 2px;
+    border: 1px solid #CCC;
+    border-radius: 2px;
+    font: inherit;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    transition: all .1s ease; }
+    .tags-input .tag.selected {
+      background-color: #777;
+      border-color: #777;
+      color: #EEE; }
+    .tags-input .tag.dupe {
+      -webkit-transform: scale3d(1.2, 1.2, 1.2);
+      transform: scale3d(1.2, 1.2, 1.2);
+      background-color: #FCC;
+      border-color: #700; }
+  .tags-input input {
+    -webkit-appearance: none;
+    appearance: none;
+    display: inline-block;
+    padding: 3px;
+    margin: 0;
+    background: 0 0;
+    border: none;
+    box-shadow: none;
+    font: inherit;
+    font-size: 100%;
+    outline: 0; }
+  .tags-input .selected ~ input {
+    opacity: .3; }
 
 /*# sourceMappingURL=index.css.map */

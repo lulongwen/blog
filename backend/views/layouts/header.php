@@ -1,9 +1,12 @@
 <?php
 
   use yii\helpers\Html;
+  use common\models\Comment;
 
   /* @var $this \yii\web\View */
   /* @var $content string */
+
+  $count = Comment::getPendingCommentCount();
 ?>
 
 <header class="main-header">
@@ -105,10 +108,10 @@
         <li class="dropdown notifications-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <i class="fa fa-bell-o"></i>
-            <span class="label label-warning">10</span>
+            <span class="label label-warning"><?= $count ?></span>
           </a>
           <ul class="dropdown-menu">
-            <li class="header">You have 10 notifications</li>
+            <li class="header">未审核评论 <?= $count ?></li>
             <li>
               <!-- inner menu: contains the actual data -->
               <ul class="menu scrollbar">

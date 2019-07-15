@@ -58,9 +58,19 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
-    /**
-     * {@inheritdoc}
-     */
+
+    // public function attributes() {
+    //     return [
+    //         'id' => 'ID',
+    //         'status' => '认证状态',
+    //         'username' => '用户名',
+    //         'auth_key' => '认证 KEY',
+    //         'password_hash' => '密码',
+    //         'password_reset_token' => '重置密码TOKEN'
+    //     ];
+    // }
+
+    
     public static function findIdentity($id)
     {
         return static::findOne(['id' => $id, 'status' => self::STATUS_ACTIVE]);

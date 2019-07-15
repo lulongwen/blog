@@ -45,8 +45,7 @@
 
     <aside class="aside">
       <img width="200"
-           src="<?= ($list['thumbnail']
-             ? $list['thumbnail'] : Yii::$app->params['defaultImage']) ?>"
+           src="<?= ($list['thumbnail'] ?: Yii::$app->params['defaultImage']) ?>"
            alt="<?= $list['title'] ?>">
 
       <!-- 文章标签 -->

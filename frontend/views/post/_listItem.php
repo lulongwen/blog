@@ -1,29 +1,48 @@
 <?php
-use yii\helpers\Html;
+  /**
+   * Created by PhpStorm.
+   * User: 卢珑文
+   * Date: 2019-07-15
+   * Time: 8:08
+   * description:
+   */
+
+  use yii\helpers\Html;
 
 ?>
+<section class="post-items">
+  <h2 class="title">
+    <a href="<?= $model->url ?>"><?= Html::encode($model->title) ?></a>
+  </h2>
+  <p class="subtags">
+    <span>
+      <i class="glyphicon glyphicon-time"></i>
+      <?= date('Y-m-d H:i:s', $model->updated_at) ?>
+    </span>
+    <span>
+      <i class="glyphicon glyphicon-user"></i>
+      <?= $model->user->username ?>
+    </span>
+  </p>
 
-<div class="post" style="margin-bottom: 32px">
-  <header class="title">
-    <h2 class="h4">
-      <a href="<?= $model->url ?>">
-        <?= Html::encode($model->title) ?>
-      </a>
-    </h2>
-    
-    <!-- 发表时间及 作者 -->
-    <footer class="author">
-      <i><?= date('Y-m-d H:i:s', $model->created_at) ?></i>
-      <i><?= Html::encode($model->author->nickname) ?></i>
-    </footer>
-  </header>
-  
   <section class="content">
     <?= $model->beginning ?>
   </section>
-  
-  <footer>
-    <?=Html::a("评论 ({$model->commentCount})", $model->url.'#comments') ?>
-    <span>更新：<?=date('Y-m-s H:i:s', $model->update_time) ?></span>
+
+  <footer class="subtags">
+  <span>
+    <i class="glyphicon glyphicon-tag"></i>
+    <?= implode(',', $model->taglink) ?>
+  </span>
+
+    <span>
+    <i class="glyphicon glyphicon-comment"></i>
+    <?= Html::a("评论 ({$model->commentCount})", $model->url . '#comments') ?>
+  </span>
+
+    <span>
+    <i class="glyphicon glyphicon-time"></i> 更新时间
+    <?= date('Y-m-d H:i:s', $model->updated_at) ?>
+  </span>
   </footer>
-</div>
+</section>

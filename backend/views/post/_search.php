@@ -19,17 +19,25 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'title') ?>
 
+    <?= $form->field($model, 'summary') ?>
+
     <?= $form->field($model, 'content') ?>
 
-    <?= $form->field($model, 'tags') ?>
+    <?= $form->field($model, 'thumbnail') ?>
 
-    <?= $form->field($model, 'status') ?>
+    <?php // echo $form->field($model, 'userid') ?>
 
-    <?php // echo $form->field($model, 'create_time') ?>
+    <?php // echo $form->field($model, 'username') ?>
 
-    <?php // echo $form->field($model, 'update_time') ?>
+    <?php // echo $form->field($model, 'categoryid') ?>
 
-    <?php // echo $form->field($model, 'author_id') ?>
+    <?php // echo $form->field($model, 'status') ?>
+
+    <?php // echo $form->field($model, 'created_at') ?>
+
+    <?php // echo $form->field($model, 'updated_at') ?>
+
+    <?php // echo $form->field($model, 'deleted_at') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

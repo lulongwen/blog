@@ -1,21 +1,18 @@
 <?php
 
-use yii\helpers\Html;
+  use yii\helpers\Html;
 
-/* @var $this yii\web\View */
-/* @var $model common\models\Comment */
+  /* @var $this yii\web\View */
+  /* @var $model common\models\Comment */
 
-$this->title = 'Update Comment: ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Comments', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id, 'status' => $model->status, 'user_id' => $model->user_id, 'post_id' => $model->post_id]];
-$this->params['breadcrumbs'][] = 'Update';
+  $this->title = '修改评论: ' . $model->id;
+  $this->params['breadcrumbs'][] = ['label' => '评论', 'url' => ['index']];
+  $this->params['breadcrumbs'][] = ['label' => 'ID:' . $model->id, 'url' => ['view', 'id' => $model->id]];
+  $this->params['breadcrumbs'][] = '修改';
 ?>
-<div class="comment-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<h1><?= Html::encode($this->title) ?></h1>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
-
-</div>
+<?= $this->render('_form', [
+  'model' => $model,
+]) ?>

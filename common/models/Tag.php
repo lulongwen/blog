@@ -33,7 +33,10 @@ class Tag extends \yii\db\ActiveRecord
   // 把标签字符串,转换成数组
   public static function string2array($tags)
   {
-    return preg_split('/\s*, \s*/', trim($tags), -1, PREG_SPLIT_NO_EMPTY);
+    $arr = preg_split('/\s*,\s*/', trim($tags), -1, PREG_SPLIT_NO_EMPTY);
+
+
+    return $arr;
   }
   
   // 把标签数组转字符串
@@ -56,10 +59,10 @@ class Tag extends \yii\db\ActiveRecord
       $tagCount = Tag ::find() -> where(['name' => $name]) -> count();
       // 判断数据库中有没有这个标签
       if (!$tagCount) {
-        $tag = new Tag();
-        $tag -> name = $name;
-        $tag -> frequency = 1;
-        $tag -> save();
+        $myTag = new Tag();
+        $myTag -> name = $name;
+        $myTag -> frequency = 1;
+        $myTag -> save();
       } else {
         // 如果存在 +1，不存在就创建
         $tag -> frequency += 1;
@@ -96,7 +99,7 @@ class Tag extends \yii\db\ActiveRecord
     if (!empty($oldTags) || !empty($newTags)) {
       $oldTagsArray = self::string2array($oldTags);
       $newTagsArray = self::string2array($newTags);
-      
+
       // arrary_diff 求差集数组
       self::addTags(array_values(array_diff($newTagsArray, $oldTagsArray)));
       self::removeTags(array_values(array_diff($oldTagsArray, $newTagsArray)));
@@ -119,7 +122,7 @@ class Tag extends \yii\db\ActiveRecord
     $count = 1;
     
     if ($total > 0) {
-      foreach ($models as $item) {
+      foreach ($model as $item) {
         $weight = ceil($count / $step) + 1;
         $tags[$item -> name] = $weight;
         $count++;

@@ -1,0 +1,48 @@
+.tags-input {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  .tag {
+    display: inline-block;
+    background: #EEE;
+    color: #444;
+    padding: 0 4px;
+    margin: 2px;
+    border: 1px solid #CCC;
+    border-radius: 2px;
+    font: inherit;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    transition: all .1s ease;
+    &.selected {
+      background-color: #777;
+      border-color: #777;
+      color: #EEE
+    }
+
+    &.dupe {
+      -webkit-transform: scale3d(1.2, 1.2, 1.2);
+      transform: scale3d(1.2, 1.2, 1.2);
+      background-color: #FCC;
+      border-color: #700;
+    }
+  }
+
+  input {
+    -webkit-appearance: none ;
+    appearance: none ;
+    display: inline-block ;
+    padding: 3px;
+    margin: 0 ;
+    background: 0 0 ;
+    border: none ;
+    box-shadow: none ;
+    font: inherit ;
+    font-size: 100% ;
+    outline: 0;
+  }
+
+  .selected ~ input {
+    opacity: .3;
+  }
+}

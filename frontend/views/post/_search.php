@@ -25,6 +25,8 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'thumbnail') ?>
 
+    <?php // echo $form->field($model, 'tags') ?>
+
     <?php // echo $form->field($model, 'userid') ?>
 
     <?php // echo $form->field($model, 'username') ?>

@@ -7,39 +7,34 @@ use yii\grid\GridView;
 /* @var $searchModel common\models\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Users';
+$this->title = '用户列表';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="user-index">
+<header class="admin-index">
+  <h1><?= Html::encode($this->title) ?></h1>
 
-    <h1><?= Html::encode($this->title) ?></h1>
+  <?= Html::a('新建用户', ['create'], ['class' => 'btn btn-success btn-sm']) ?>
+</header>
 
-    <p>
-        <?= Html::a('Create User', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+<?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+<?= GridView::widget([
+    'dataProvider' => $dataProvider,
+    'filterModel' => $searchModel,
+    'columns' => [
+        ['class' => 'yii\grid\SerialColumn'],
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+        'id',
+        'username',
+        'auth_key',
+        'password_hash',
+        'password_reset_token',
+        //'email:email',
+        //'status',
+        //'created_at',
+        //'updated_at',
+        //'verification_token',
 
-            'id',
-            'username',
-            'auth_key',
-            'password_hash',
-            'password_reset_token',
-            //'email:email',
-            //'status',
-            //'created_at',
-            //'updated_at',
-            //'verification_token',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-
-
-</div>
+        ['class' => 'yii\grid\ActionColumn'],
+    ],
+]); ?>

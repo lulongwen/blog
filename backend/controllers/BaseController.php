@@ -6,7 +6,7 @@
  * Time: 21:51
  * 基础控制器
  */
-namespace frontend\controllers;
+namespace backend\controllers;
 
 use yii\web\Controller;
 

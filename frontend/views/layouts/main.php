@@ -9,6 +9,7 @@ use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
 
+
 $avatar = Yii ::$app -> params['avatar']['image'];
 
 
@@ -26,7 +27,7 @@ AppAsset ::register($this);
   <title><?= Html ::encode($this -> title) ?></title>
   <?php $this -> head() ?>
 </head>
-<body class="pt-50">
+<body class="pt-65">
 <?php $this -> beginBody() ?>
 
 <div class="wrap">
@@ -41,8 +42,9 @@ AppAsset ::register($this);
   ]);
   
   $leftItems = [
-    ['label' => '文章管理', 'url' => ['/post/index']],
+    ['label' => '前端开发', 'url' => ['/post/index']],
     ['label' => '后端开发', 'url' => ['/site/about']],
+    ['label' => '用户管理', 'url' => ['/user/index']],
     ['label' => '项目经理', 'url' => ['/site/index']],
     ['label' => '全栈架构', 'url' => ['/site/fullstack']],
     ['label' => '帮你学会', 'url' => ['/site/contact']],
