@@ -109,25 +109,26 @@ class Tag extends \yii\db\ActiveRecord
   
   
   // 标签云，自定义的组件
-  public static function findTagWeights($limit = 20)
+  public static function findTags($limit = 20)
   {
+    // 把标签分为5个档次，取出所有标签，算出每个档次应该分配多少个标签
     $tagLevel = 5;
     $model = Tag ::find() -> orderBy('frequency desc') -> limit($limit) -> all();
-    
-    $total = self ::find() -> limit($limit) -> count();
+    $total = Tag ::find() -> limit($limit) -> count();
     
     $step = ceil($total / $tagLevel);
     
     $tags = array();
     $count = 1;
     
+    // 在循环中给 tag标签赋值
     if ($total > 0) {
       foreach ($model as $item) {
         $weight = ceil($count / $step) + 1;
         $tags[$item -> name] = $weight;
         $count++;
       }
-      
+      // 数组按键名排序
       ksort($tags);
     }
     

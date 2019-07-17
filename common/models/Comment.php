@@ -30,6 +30,7 @@
 
     public function rules() {
       return [
+        [['content'], 'required'],
         [['content'], 'string'],
         [['userid', 'postid', 'remind', 'status', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
         [['email'], 'string', 'max' => 80],
@@ -128,6 +129,13 @@
     // 查看有多少条待审核评论
     public static function getPendingCommentCount() {
       return Comment::find() -> where(['status' => 0]) -> count();
+    }
+    
+    
+    // 获取评论
+    public static function findReplyComments($limit=10) {
+      return Comment::find() ->where(['status' => 1])
+        -> orderBy('created_at DESC')-> limit($limit) -> all();
     }
 
   }

@@ -38,7 +38,7 @@
       'value' => 'beginning' // 调用的是 getBeginning 方法，只读的属性
     ],
     [
-      'attribute' => 'user.username',
+      // 'attribute' => 'user.username',
       // 'value' => 'user.username',
       'label' => '用户'
     ],

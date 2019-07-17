@@ -5,7 +5,7 @@ use yii\grid\GridView;
 use yii\widgets\ListView;
 
 use frontend\components\TagsCloudWidget;
-use frontend\components\RecentWidget;
+use frontend\components\ReplyComment;
 
 use yii\common\models\Post;
 
@@ -128,7 +128,7 @@ $this->title = '文章列表';
     <section class="panel panel-success">
       <header class="panel-heading">评论列表</header>
       <main class="panel-body">
-        <?= RecentWidget::widget(['recentComments' => $recentComments]) ?>
+        <?= ReplyComment ::widget(['recentComments' => $recentComments]) ?>
       </main>
     </section>
     

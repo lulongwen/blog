@@ -46,7 +46,7 @@ class AdminuserController extends Controller
 
     /**
      * Displays a single Adminuser model.
-     * @param string $id
+     * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -78,7 +78,7 @@ class AdminuserController extends Controller
     /**
      * Updates an existing Adminuser model.
      * If update is successful, the browser will be redirected to the 'view' page.
-     * @param string $id
+     * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -98,7 +98,7 @@ class AdminuserController extends Controller
     /**
      * Deletes an existing Adminuser model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param string $id
+     * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
@@ -112,7 +112,7 @@ class AdminuserController extends Controller
     /**
      * Finds the Adminuser model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param string $id
+     * @param integer $id
      * @return Adminuser the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */

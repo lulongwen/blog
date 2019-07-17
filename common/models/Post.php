@@ -64,14 +64,31 @@ class Post extends \yii\db\ActiveRecord
   // 文章表和标签表的关联关系
   public function getRelate()
   {
-    return $this -> hasMany(PosTag ::className(), ['post_id' => 'id']);
+    return $this -> hasMany(PosTag ::className(), ['postid' => 'id']);
   }
 
 
   // 获取文章评论
-  public function getComment()
+  public function getComments()
   {
-    return $this -> hasOne(CommentModel ::className(), ['post_id' => 'id']);
+    return $this -> hasMany(Comment ::className(), ['postid' => 'id']);
+  }
+  
+  // 获取文章已审核的评论
+  public function getAuditComments()
+  {
+    return $this -> hasMany(Comment ::className(), ['postid' => 'id'])
+      -> where('status = :status', [':status' => 1])
+      -> orderBy('id DESC');
+  }
+  // 获取已审核的评论的数量
+  public function getCommentCount()
+  {
+    return Comment ::find() -> where(['postid' => $this -> id, 'status' => 1]) -> count();
+  }
+  
+  public function getPostStatus() {
+    return $this-> hasOne(PostStatus::className(), ['postid' => 'id']);
   }
 
 
@@ -150,25 +167,7 @@ class Post extends \yii\db\ActiveRecord
   {
     return $this -> hasOne(Category ::className(), ['id' => 'categoryid']);
   }
-
-
-  public function getComments()
-  {
-    return $this -> hasMany(Comment ::className(), ['postid' => 'id']);
-  }
-
-
-  public function getCommentCount()
-  {
-    return Comment ::find() -> where(['postid' => $this -> id, 'status' => 2]) -> count();
-  }
-
-
-  public function getActiveComments()
-  {
-    return $this -> hasMany(Comment ::className(), ['postid' => 'id']) -> where('status= :status',
-        [':status' => 1]) -> orderBy('id DESC');
-  }
+  
 
 
   // 获取文章后，在文章读取以后

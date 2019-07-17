@@ -33,6 +33,9 @@ EasyWeChat 开源的 微信SDK, 非官方
   composer require "abei2017/yii2-wx" -vvv
 
 
+HTMLPurifiler
+	https://blog.csdn.net/hanzengyi/article/details/43019479
+
 ```
 
 

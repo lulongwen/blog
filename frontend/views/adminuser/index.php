@@ -7,13 +7,16 @@ use yii\grid\GridView;
 /* @var $searchModel common\models\AdminuserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '管理员列表';
+$this->title = 'Adminusers';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<header class="admin-index">
-  <h1><?= Html::encode($this->title) ?></h1>
-  <?= Html::a('新建管理员', ['create'], ['class' => 'btn btn-success btn-sm']) ?>
-</header>
+<div class="adminuser-index">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <p>
+        <?= Html::a('Create Adminuser', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -28,9 +31,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'nickname',
             'password_hash',
             'email:email',
+            //'avatar',
+            //'level',
             //'profile:ntext',
+            //'auth_key',
+            //'password_reset_token',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 
+
+</div>

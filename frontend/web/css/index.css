@@ -12,6 +12,24 @@
 .pt-65 {
   padding-top: 65px; }
 
+.mb-20 {
+  margin-bottom: 20px; }
+
+.font-12 {
+  font-size: 12px; }
+
+.font-13 {
+  font-size: 13px; }
+
+.font-16 {
+  font-size: 16px; }
+
+.font-18 {
+  font-size: 18px; }
+
+.font-20 {
+  font-size: 20px; }
+
 html,
 body {
   height: 100%; }
@@ -178,15 +196,13 @@ nav.chat {
   position: relative;
   padding-right: 53px;
   margin-bottom: 16px; }
-
-nav.chat .form-control {
-  border-radius: 4px 0 0 4px; }
-
-nav.chat .btn {
-  position: absolute;
-  top: 0;
-  right: 0;
-  border-radius: 0 4px 4px 0; }
+  nav.chat .form-control {
+    border-radius: 4px 0 0 4px; }
+  nav.chat .btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 0 4px 4px 0; }
 
 .chat-list {
   margin-bottom: 16px;
@@ -287,6 +303,28 @@ nav.chat .btn {
     position: absolute;
     top: 20px;
     left: 15px; }
+
+.panel-heading {
+  height: 34px;
+  padding: 7px 15px; }
+
+.tags-cloud .label {
+  display: inline-block;
+  margin: 0 5px 10px 0; }
+
+.post-comment-item {
+  margin-bottom: 10px;
+  padding: 15px 15px 0;
+  background-color: rgba(245, 245, 245, 0.6); }
+  .post-comment-item:last-of-type {
+    margin-bottom: 0; }
+  .post-comment-item h6 {
+    height: 32px;
+    margin-top: 0;
+    line-height: 1.4;
+    overflow: hidden; }
+  .post-comment-item p {
+    margin: 0; }
 
 .tags-input {
   padding-top: 3px;

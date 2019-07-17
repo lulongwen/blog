@@ -15,15 +15,17 @@ nav.chat {
   position: relative;
   padding-right: 53px;
   margin-bottom: 16px;
-}
-nav.chat .form-control {
-  border-radius: 4px 0 0 4px;
-}
-nav.chat .btn {
-  position: absolute;
-  top: 0;
-  right: 0;
-  border-radius: 0 4px 4px 0;
+  
+  .form-control {
+    border-radius: 4px 0 0 4px;
+  }
+  
+  .btn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 0 4px 4px 0;
+  }
 }
 
 .chat-list {

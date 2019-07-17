@@ -16,6 +16,7 @@
     'language' => 'zh-CN',
     'components' => [
       'request' => [
+        'cookieValidationKey' => 'lulongwen2019',
         'csrfParam' => '_csrf-backend',
       ],
       'user' => [
@@ -23,6 +24,8 @@
         'enableAutoLogin' => true,
         'identityCookie' => ['name' => '_identity-backend', 'httpOnly' => true],
       ],
+      // 解决前后台 id相同公用 session 同时登录注销问题
+      // 设置后台专用 session，和前台区分开
       'session' => [
         // this is the name of the session cookie used for login on the backend
         'name' => 'advanced-backend',

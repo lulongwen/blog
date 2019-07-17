@@ -17,8 +17,8 @@ class AdminuserSearch extends Adminuser
     public function rules()
     {
         return [
-            [['id'], 'integer'],
-            [['user_name', 'nick_name', 'password', 'email', 'profile'], 'safe'],
+            [['id', 'level'], 'integer'],
+            [['username', 'nickname', 'password_hash', 'email', 'avatar', 'profile', 'auth_key', 'password_reset_token'], 'safe'],
         ];
     }
 
@@ -59,13 +59,17 @@ class AdminuserSearch extends Adminuser
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'level' => $this->level,
         ]);
 
-        $query->andFilterWhere(['like', 'user_name', $this->user_name])
-            ->andFilterWhere(['like', 'nick_name', $this->nick_name])
-            ->andFilterWhere(['like', 'password', $this->password])
+        $query->andFilterWhere(['like', 'username', $this->username])
+            ->andFilterWhere(['like', 'nickname', $this->nickname])
+            ->andFilterWhere(['like', 'password_hash', $this->password_hash])
             ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'profile', $this->profile]);
+            ->andFilterWhere(['like', 'avatar', $this->avatar])
+            ->andFilterWhere(['like', 'profile', $this->profile])
+            ->andFilterWhere(['like', 'auth_key', $this->auth_key])
+            ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token]);
 
         return $dataProvider;
     }
