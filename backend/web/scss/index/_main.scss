@@ -3,17 +3,17 @@ $border-color: #e8eaec;
 
 .admin-index {
   position: relative;
-  height: 40px;
-  padding-bottom: 9px;
+  height: 35px;
+  margin-bottom: 15px;
   border-bottom: 1px solid $border-color;
 
 
   > h1 {
     margin: 0;
-    line-height: 1.6;
+    line-height: 35px;
     font-size: 18px;
   }
-  > .btn.btn-sm {
+  > .btn.btn-sm, .extra {
     position: absolute;
     top: 0;
     right: 0;

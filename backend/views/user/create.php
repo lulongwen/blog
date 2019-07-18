@@ -5,16 +5,16 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\User */
 
-$this->title = 'Create User';
-$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this -> title = '新建用户';
+$this -> params['breadcrumbs'][] = ['label' => '用户', 'url' => ['index']];
+$this -> params['breadcrumbs'][] = $this -> title;
 ?>
-<div class="user-create">
+<header class="admin-index">
+  <h1><?= Html ::encode($this -> title) ?></h1>
+</header>
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<?= $this -> render('_form', [
+  'model' => $model,
+]) ?>
 
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
 
-</div>

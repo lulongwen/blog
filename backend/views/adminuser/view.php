@@ -6,36 +6,38 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\Adminuser */
 
-$this->title = $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Adminusers', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
-\yii\web\YiiAsset::register($this);
+$this -> title = $model -> username;
+$this -> params['breadcrumbs'][] = ['label' => '管理员', 'url' => ['index']];
+$this -> params['breadcrumbs'][] = $this -> title;
+\yii\web\YiiAsset ::register($this);
 ?>
-<div class="adminuser-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'user_name',
-            'nick_name',
-            'password',
-            'email:email',
-            'profile:ntext',
-        ],
+<header class="admin-index">
+  <h1><?= Html ::encode($this -> title) ?></h1>
+  <div class="btn-group btn-group-sm extra">
+    <?= Html ::a('修改', ['update', 'id' => $model -> id], ['class' => 'btn btn-primary']) ?>
+    <?= Html ::a('删除', ['delete', 'id' => $model -> id], [
+      'class' => 'btn btn-danger',
+      'data' => [
+        'confirm' => '您确认删除当前管理员?',
+        'method' => 'post',
+      ],
     ]) ?>
-
-</div>
+  </div>
+</header>
+  
+  <?= DetailView ::widget([
+    'model' => $model,
+    'attributes' => [
+      'id',
+      'username',
+      'nickname',
+      // 'password_hash',
+      'email:email',
+      'avatar',
+      'level',
+      'profile:ntext',
+      // 'auth_key',
+      // 'password_reset_token',
+    ],
+  ]) ?>
+  

@@ -9,18 +9,21 @@ use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
 /**
- * User model
- * @property integer $id
- * @property string $username
- * @property string $password_hash
- * @property string $password_reset_token
- * @property string $verification_token
- * @property string $email
- * @property string $auth_key
- * @property integer $status
- * @property integer $created_at
- * @property integer $updated_at
- * @property string $password write-only password
+ * User model 验证功能和前台会员功能，比如查看文章，发表评论
+ * This is the model class for table "blog_user".
+ *
+ * @property int $id 用户ID
+ * @property string $username 用户名
+ * @property string $auth_key 认证的 key
+ * @property string $password_hash 密码
+ * @property string $password_reset_token 重置密码token
+ * @property string $email 邮箱
+ * @property int $status 状态,10注册已验证，9注册未验证
+ * @property string $avatar 用户头像
+ * @property int $created_at 创建时间
+ * @property int $updated_at 更新时间
+ * @property string $verification_token 认证token
+ * @property int $deleted_at 删除时间
  */
 class User extends ActiveRecord implements IdentityInterface
 {
@@ -46,28 +49,47 @@ class User extends ActiveRecord implements IdentityInterface
     ];
   }
   
-  /**
-   * {@inheritdoc}
-   */
+  
   public function rules()
   {
     return [
       ['status', 'default', 'value' => self::STATUS_INACTIVE],
       ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
+      
+      [['username', 'email'], 'required'],
+      [['status', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
+      [['username', 'email'], 'string', 'max' => 30],
+      [['auth_key'], 'string', 'max' => 32],
+      [['password_hash', 'password_reset_token'], 'string', 'max' => 60],
+      [['avatar'], 'string', 'max' => 120],
+      [['verification_token'], 'string', 'max' => 180],
+      [['username', 'email'], 'unique'],
+      
+      [['email'], 'email'],
+      [['password_reset_token'], 'unique'],
+  
+      // [['status', 'created_at', 'updated_at', 'deleted_at'], 'safe'],
     ];
   }
   
-  public function attributes()
+  public function attributeLabels()
   {
     return [
       'id' => 'ID',
-      'status' => '认证状态',
       'username' => '用户名',
       'auth_key' => '认证 KEY',
       'password_hash' => '密码',
-      'password_reset_token' => '重置密码TOKEN'
+      'password_reset_token' => '重置TOKEN',
+      'email' => '邮箱',
+      'status' => '认证状态',
+      'avatar' => '头像',
+      'created_at' => '创建时间',
+      'updated_at' => '更新时间',
+      'verification_token' => '验证TOKEN',
+      'deleted_at' => '删除时间',
     ];
   }
+  
   
   // 认证相关的代码
   public static function findIdentity($id)
@@ -209,5 +231,16 @@ class User extends ActiveRecord implements IdentityInterface
   public function removePasswordResetToken()
   {
     $this -> password_reset_token = null;
+  }
+  
+  
+  
+  // 后台功能代码
+  public static function allStatus() {
+    return [self::STATUS_ACTIVE => '已认证', self::STATUS_INACTIVE => '未认证', self::STATUS_DELETED => '删除'];
+  }
+  
+  public function getStatusStr() {
+    return $this->status == self::STATUS_ACTIVE ? '已认证' : '未认证';
   }
 }

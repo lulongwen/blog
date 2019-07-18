@@ -37,7 +37,6 @@
       <?= Html::csrfMetaTags() ?>
       <title><?= Html::encode($this->title) ?></title>
       <?php $this->head() ?>
-      <link rel="stylesheet" href="css/index.css">
     </head>
     <body class="hold-transition <?= AdminLteHelper::skinClass() ?> sidebar-mini scrollbar">
     <!--<body class="hold-transition skin-blue sidebar-mini">-->

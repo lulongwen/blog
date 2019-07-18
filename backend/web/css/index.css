@@ -3,14 +3,14 @@
  */
 .admin-index {
   position: relative;
-  height: 40px;
-  padding-bottom: 9px;
+  height: 35px;
+  margin-bottom: 15px;
   border-bottom: 1px solid #e8eaec; }
   .admin-index > h1 {
     margin: 0;
-    line-height: 1.6;
+    line-height: 35px;
     font-size: 18px; }
-  .admin-index > .btn.btn-sm {
+  .admin-index > .btn.btn-sm, .admin-index .extra {
     position: absolute;
     top: 0;
     right: 0; }
@@ -22,7 +22,7 @@
   border-bottom: 1px solid #e8eaec; }
 
 .grid-view .summary {
-  margin: 10px 0;}
+  margin: 10px 0; }
 
 /*
  * Skin: Red

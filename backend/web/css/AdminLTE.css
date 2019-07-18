@@ -134,17 +134,13 @@ body {
 .hold-transition .menu-open .fa-angle-left {
   /* Fix for IE */
   -webkit-transition: none;
-  -o-transition: none;
   transition: none;
 }
 /* Content */
 .content {
-  min-height: 250px;
+  min-height: 100vh;
+  margin: 0 auto;
   padding: 15px;
-  margin-right: auto;
-  margin-left: auto;
-  padding-left: 15px;
-  padding-right: 15px;
 }
 /* H1 - H6 font */
 h1,

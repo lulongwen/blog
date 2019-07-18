@@ -52,15 +52,15 @@ class Adminuser extends ActiveRecord implements IdentityInterface
   {
     return [
       'id' => 'ID',
-      'username' => 'Username',
-      'nickname' => 'Nickname',
-      'password_hash' => 'Password Hash',
-      'email' => 'Email',
-      'avatar' => 'Avatar',
-      'level' => 'Level',
-      'profile' => 'Profile',
-      'auth_key' => 'Auth Key',
-      'password_reset_token' => 'Password Reset Token',
+      'username' => '用户名',
+      'nickname' => '昵称',
+      'password_hash' => '密码',
+      'email' => '邮箱',
+      'avatar' => '头像',
+      'level' => '级别',
+      'profile' => '介绍',
+      'auth_key' => '认证KEY',
+      'password_reset_token' => '重置密码TOKEN',
     ];
   }
   
