@@ -11,7 +11,7 @@
  Target Server Version : 50725
  File Encoding         : 65001
 
- Date: 17/07/2019 09:28:19
+ Date: 19/07/2019 08:42:36
 */
 
 SET NAMES utf8mb4;
@@ -33,7 +33,7 @@ CREATE TABLE `blog_adminuser` (
   `auth_key` varchar(32) DEFAULT NULL COMMENT '用户 key',
   `password_reset_token` varchar(200) DEFAULT NULL COMMENT '重置密码 token',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='管理员表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='管理员表';
 
 -- ----------------------------
 -- Records of blog_adminuser
@@ -42,7 +42,101 @@ BEGIN;
 INSERT INTO `blog_adminuser` VALUES (1, 'longwen', '卢珑文', '$2y$13$4Y5KRDHPFYF.rYumLe6rx.34gBLpK6HROMklh9A8.TZwRFNrM5RyW', 'webmaster@example.com.cn', NULL, NULL, 'hello,this is my profile', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', NULL);
 INSERT INTO `blog_adminuser` VALUES (2, 'anhaiyin', '安海音', '$2y$13$HtJqGRmc76KIRIwokii8AOQ1XZljXiuWCKUGFnH9vkTnfBpHtqgFu', 'tim@u2000.com', NULL, NULL, 'a testing user', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', NULL);
 INSERT INTO `blog_adminuser` VALUES (3, 'tutu', '兔兔', '$2y$13$HtJqGRmc76KIRIwokii8AOQ1XZljXiuWCKUGFnH9vkTnfBpHtqgFu', 'heyx@hotmail.com', NULL, NULL, 'a testing user', 'pG7TRyTIXlEbcenpi34TzmMYS2zDsMTF', NULL);
+INSERT INTO `blog_adminuser` VALUES (4, 'test001', '林兔兔', '$2y$13$HtJqGRmc76KIRIwokii8AOQ1XZljXiuWCKUGFnH9vkTnfBpHtqgFu', 'lin@tutu.com', NULL, NULL, NULL, 'dav2kwcRxiTM3UarlQPfFuq9PDHyKO7p', NULL);
 COMMIT;
+
+-- ----------------------------
+-- Table structure for blog_auth_assignment
+-- ----------------------------
+DROP TABLE IF EXISTS `blog_auth_assignment`;
+CREATE TABLE `blog_auth_assignment` (
+  `item_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `user_id` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `created_at` int(11) DEFAULT NULL,
+  PRIMARY KEY (`item_name`,`user_id`),
+  KEY `blog_idx-auth_assignment-user_id` (`user_id`),
+  CONSTRAINT `blog_auth_assignment_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `blog_auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of blog_auth_assignment
+-- ----------------------------
+BEGIN;
+INSERT INTO `blog_auth_assignment` VALUES ('admin', '1', 1563495943);
+INSERT INTO `blog_auth_assignment` VALUES ('commentAuditor', '4', 1563495938);
+INSERT INTO `blog_auth_assignment` VALUES ('postAdmin', '2', 1563495947);
+INSERT INTO `blog_auth_assignment` VALUES ('postOperator', '3', 1563495932);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for blog_auth_item
+-- ----------------------------
+DROP TABLE IF EXISTS `blog_auth_item`;
+CREATE TABLE `blog_auth_item` (
+  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `type` smallint(6) NOT NULL,
+  `description` text COLLATE utf8_unicode_ci,
+  `rule_name` varchar(64) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `data` blob,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
+  PRIMARY KEY (`name`),
+  KEY `rule_name` (`rule_name`),
+  KEY `blog_idx-auth_item-type` (`type`),
+  CONSTRAINT `blog_auth_item_ibfk_1` FOREIGN KEY (`rule_name`) REFERENCES `blog_auth_rule` (`name`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of blog_auth_item
+-- ----------------------------
+BEGIN;
+INSERT INTO `blog_auth_item` VALUES ('admin', 1, '超级管理员', NULL, NULL, 1563460722, 1563460722);
+INSERT INTO `blog_auth_item` VALUES ('approveComment', 2, '审核评论', NULL, NULL, 1563460722, 1563460722);
+INSERT INTO `blog_auth_item` VALUES ('commentAuditor', 1, '评论审核员', NULL, NULL, 1563460722, 1563460722);
+INSERT INTO `blog_auth_item` VALUES ('createPost', 2, '新增文章', NULL, NULL, 1563460722, 1563460722);
+INSERT INTO `blog_auth_item` VALUES ('deletePost', 2, '删除文章', NULL, NULL, 1563460722, 1563460722);
+INSERT INTO `blog_auth_item` VALUES ('postAdmin', 1, '文章管理员', NULL, NULL, 1563460722, 1563460722);
+INSERT INTO `blog_auth_item` VALUES ('postOperator', 1, '文章操作员', NULL, NULL, 1563460722, 1563460722);
+INSERT INTO `blog_auth_item` VALUES ('updatePost', 2, '修改文章', NULL, NULL, 1563460722, 1563460722);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for blog_auth_item_child
+-- ----------------------------
+DROP TABLE IF EXISTS `blog_auth_item_child`;
+CREATE TABLE `blog_auth_item_child` (
+  `parent` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `child` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`parent`,`child`),
+  KEY `child` (`child`),
+  CONSTRAINT `blog_auth_item_child_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `blog_auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `blog_auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `blog_auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- ----------------------------
+-- Records of blog_auth_item_child
+-- ----------------------------
+BEGIN;
+INSERT INTO `blog_auth_item_child` VALUES ('commentAuditor', 'approveComment');
+INSERT INTO `blog_auth_item_child` VALUES ('admin', 'commentAuditor');
+INSERT INTO `blog_auth_item_child` VALUES ('postAdmin', 'createPost');
+INSERT INTO `blog_auth_item_child` VALUES ('postAdmin', 'deletePost');
+INSERT INTO `blog_auth_item_child` VALUES ('postOperator', 'deletePost');
+INSERT INTO `blog_auth_item_child` VALUES ('admin', 'postAdmin');
+INSERT INTO `blog_auth_item_child` VALUES ('postAdmin', 'updatePost');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for blog_auth_rule
+-- ----------------------------
+DROP TABLE IF EXISTS `blog_auth_rule`;
+CREATE TABLE `blog_auth_rule` (
+  `name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `data` blob,
+  `created_at` int(11) DEFAULT NULL,
+  `updated_at` int(11) DEFAULT NULL,
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- ----------------------------
 -- Table structure for blog_category
@@ -177,6 +271,9 @@ CREATE TABLE `blog_migration` (
 BEGIN;
 INSERT INTO `blog_migration` VALUES ('m000000_000000_base', 1562764731);
 INSERT INTO `blog_migration` VALUES ('m130524_201442_init', 1562764755);
+INSERT INTO `blog_migration` VALUES ('m140506_102106_rbac_init', 1563459729);
+INSERT INTO `blog_migration` VALUES ('m170907_052038_rbac_add_index_on_auth_assignment_user_id', 1563459729);
+INSERT INTO `blog_migration` VALUES ('m180523_151638_rbac_updates_indexes_without_prefix', 1563459729);
 INSERT INTO `blog_migration` VALUES ('m190124_110200_add_verification_token_column_to_user_table', 1562764755);
 COMMIT;
 
@@ -360,7 +457,7 @@ CREATE TABLE `blog_user` (
 -- Records of blog_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `blog_user` VALUES (1, 'longwen', 'Fd4CCY9DHop-vtpdoyLO_gruh3WaUsxJ', '$2y$13$1p3sk3KPOW/kvfPE6S6.1eOH0ICZY7bPDxv4rqFbYqGhMxnjheZ4m', NULL, '1348551496@qq.com', 10, NULL, 1562765351, 1562765351, '8TQQ7UVUeyYxViV5Oaf4Olf4KTbapbxi_1562765351', NULL);
+INSERT INTO `blog_user` VALUES (1, 'longwen', 'Fd4CCY9DHop-vtpdoyLO_gruh3WaUsxJ', '$2y$13$1p3sk3KPOW/kvfPE6S6.1eOH0ICZY7bPDxv4rqFbYqGhMxnjheZ4m', NULL, '1348551496@qq.com', 10, NULL, 1562765351, 1563375112, '8TQQ7UVUeyYxViV5Oaf4Olf4KTbapbxi_1562765351', NULL);
 INSERT INTO `blog_user` VALUES (2, 'tutu', 'Fd4CCY9DHop-vtpdoyLO_gruh3WaUsTU', '$2y$13$1p3sk3KPOW/kvfPE6S6.1eOH0ICZY7bPDxv4rqFbYqGhMxnjheZ4m', NULL, 'tutu@live.com', 10, NULL, 1562768900, 1562778351, '', NULL);
 INSERT INTO `blog_user` VALUES (3, 'haiyin', 'Fd4CCY9DHop-vtpdoyLO_gruh3WaUYin', '$2y$13$1p3sk3KPOW/kvfPE6S6.1eOH0ICZY7bPDxv4rqFbYqGhMxnjheZ4m', NULL, 'haiyin@live.com', 10, NULL, 1562885351, 1562789351, '', NULL);
 COMMIT;

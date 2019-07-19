@@ -59,6 +59,9 @@ class SignupForm extends Model
 				'email' => '邮箱',
 				'password' => '密码',
 				'password2' => '重复密码',
+        'profile' => '自我介绍',
+        'avatar' => '头像',
+        'level' => '级别',
 				'verifyCode' => '验证码'
       ];
     }

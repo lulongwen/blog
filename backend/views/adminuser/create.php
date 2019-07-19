@@ -26,7 +26,13 @@ $this -> params['breadcrumbs'][] = $this -> title;
 
 <?= $form -> field($model, 'email') -> textInput(['maxlength' => true]) ?>
 
-<?//= $form -> field($model, 'profile') -> textarea(['rows' => 6]) ?>
+<?= $form -> field($model, 'avatar') -> textInput(['maxlength' => true]) ?>
+
+<?= $form -> field($model, 'level') -> radioList([
+  '1' => '普通用户', '2' => '会员用户'
+],['maxlength' => true]) ?>
+
+<?= $form -> field($model, 'profile') -> textarea(['rows' => 6]) ?>
 
 <div class="form-group">
   <?= Html ::submitButton('保存', ['class' => 'btn btn-success']) ?>

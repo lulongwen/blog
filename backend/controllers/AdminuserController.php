@@ -7,8 +7,8 @@ use backend\models\ResetpwdForm;
 use common\models\Adminuser;
 use common\models\AdminuserSearch;
 
-// use common\models\AuthItem;
-// use common\models\AuthAssignment;
+use common\models\AuthItem;
+use common\models\AuthAssignment;
 
 use Yii;
 use yii\web\Controller;
@@ -151,17 +151,20 @@ class AdminuserController extends Controller
   // 权限设置
   public function actionPrivilege($id) {
     //step1. 找出所有权限,提供给checkboxlist
-    $allPrivileges = AuthItem::find()->select(['name','description'])
-                             ->where(['type'=>1])->orderBy('description')->all();
+    $allPrivileges = AuthItem::find()
+      ->select(['name','description'])
+      ->where(['type'=>1])->orderBy('description')->all();
   
     foreach ($allPrivileges as $pri)
     {
       $allPrivilegesArray[$pri->name]=$pri->description;
     }
-    //step2. 当前用户的权限
-  
-    $AuthAssignments=AuthAssignment::find()->select(['item_name'])
-                                   ->where(['user_id'=>$id])->orderBy('item_name')->all();
+    
+    
+    //step2. 当前用户的权限，多选按钮选中的框
+    $AuthAssignments=AuthAssignment::find()
+      ->select(['item_name'])
+      ->where(['user_id'=>$id])->orderBy('item_name')->all();
   
     $AuthAssignmentsArray = array();
   
@@ -170,6 +173,7 @@ class AdminuserController extends Controller
       array_push($AuthAssignmentsArray,$AuthAssignment->item_name);
     }
   
+    
     //step3. 从表单提交的数据,来更新AuthAssignment表,从而用户的角色发生变化
     if(isset($_POST['newPri']))
     {

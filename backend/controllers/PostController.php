@@ -6,12 +6,14 @@ use Yii;
 use common\models\Post;
 use common\models\PostSearch;
 use common\models\Category;
-use common\models\PostForm;
+// use common\models\PostForm;
 use common\models\Comment;
 
 
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
+use yii\web\NotFoundHttpException; // 404
+use yii\web\ForbiddenHttpException; // 403 异常类
+
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 
@@ -114,8 +116,11 @@ class PostController extends Controller
    */
   public function actionCreate()
   {
-    $model = new Post();
+    if (!Yii::$app-> user-> can('createPost')) {
+      throw new ForbiddenHttpException('您没有该操作的权限，请联系管理员');
+    }
     
+    $model = new Post();
     // 获取所有分类
     $category = Category::getAllCategory();
     // return $this-> render('create', ['model' => $model, 'cate' => $category]);
@@ -177,6 +182,10 @@ class PostController extends Controller
    */
   public function actionUpdate($id)
   {
+    if (!Yii::$app-> user-> can('updatePost')) {
+      throw new ForbiddenHttpException('您没有该操作的权限，请联系管理员');
+    }
+    
     $model = $this -> findModel($id);
     // 更新时，把更新时间设置为当前时间，当执行 save时，保存的就是当前时间
     // 业务逻辑尽量避免放在控制器中间，应该放在模型文件中 Model
@@ -203,8 +212,11 @@ class PostController extends Controller
    */
   public function actionDelete($id)
   {
-    $this -> findModel($id) -> delete();
+    if (!Yii::$app-> user-> can('deletePost')) {
+      throw new ForbiddenHttpException('您没有该操作的权限，请联系管理员');
+    }
     
+    $this -> findModel($id) -> delete();
     return $this -> redirect(['index']);
   }
   

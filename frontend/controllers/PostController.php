@@ -25,6 +25,7 @@ class PostController extends Controller
     return [
       'verbs' => [
         'class' => VerbFilter ::className(),
+        // 指定动作
         'actions' => [
           'delete' => ['POST'],
         ],
