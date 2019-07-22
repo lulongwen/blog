@@ -64,13 +64,14 @@ $model -> status = '0';
   <?= $form -> field($model, 'thumbnail') -> widget('common\widgets\file_upload\FileUpload', [
       'config' => [
         //图片上传的一些配置，不写调用默认配置
-        // 'domain_url' => '/images',
+        'domain_url' => 'http://admin.blog.com',
       ]
     ]) ?>
   
   
   <div class="form-group">
-    <?= Html ::submitButton(($model -> isNewRecord ? '创建' : '修改'), ['class' => 'btn btn-success']) ?>
+    <!-- ($model -> isNewRecord ? '创建' : '修改') -->
+    <?= Html ::submitButton('保存', ['class' => 'btn btn-success']) ?>
   </div>
   
   <?php ActiveForm ::end(); ?>

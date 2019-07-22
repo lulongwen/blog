@@ -41,10 +41,12 @@ body {
   left: 0; }
 
 .navbar-inverse {
-  background-color: #7F57FF;
-  border-color: #7F57FF; }
+  background-color: #5d30bf;
+  border-color: #5d30bf; }
 
-.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus {
   background-color: #8a6cf2; }
 
 .navbar-inverse .navbar-brand {

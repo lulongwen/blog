@@ -35,7 +35,7 @@ class SiteController extends Controller
         'rules' => [
           [
             // 指定动作
-            'actions' => ['signup'],
+            'actions' => [''],
             // 是否允许
             'allow' => true,
             // 适用这个规则的角色, ? 访客,  @ 注册的用户
@@ -93,6 +93,10 @@ class SiteController extends Controller
   
   public function actionLogin()
   {
+    // 屏蔽登陆页
+    // return $this->redirect(['site/index']);
+
+
     if (!Yii ::$app -> user -> isGuest) {
       return $this -> goHome();
     }
@@ -174,6 +178,9 @@ class SiteController extends Controller
    */
   public function actionSignup()
   {
+    // 禁止注册
+    return $this-> redirect('index');
+
     $model = new SignupForm();
     if ($model -> load(Yii ::$app -> request -> post()) && $model -> signup()) {
       Yii ::$app -> session -> setFlash('success',

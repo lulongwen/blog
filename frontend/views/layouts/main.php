@@ -52,8 +52,9 @@ AppAsset ::register($this);
 
   // 如果是个访客，显示登录注册
   if (Yii ::$app -> user -> isGuest) {
-    $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
-    $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
+    // $menuItems = [];
+    // $menuItems[] = ['label' => '注册', 'url' => ['/site/signup']];
+    $menuItems[] = ['label' => '登录', 'url' => ['/site/login']];
   } else {
     $menuItems[] = [
       'label' => '<img src="' . $avatar . '" alt="' . Yii ::$app -> user -> identity -> username . '"/>',

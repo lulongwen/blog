@@ -1,4 +1,8 @@
 
+$purple: #7F57FF;
+$purple: rgb(93, 48, 191); // #5d30bf
+
+
 .ptb-16 {
   padding-top: 16px;
   padding-bottom: 16px;
@@ -48,10 +52,12 @@ body {
 }
 
 .navbar-inverse {
-  background-color: #7F57FF;
-  border-color: #7F57FF;
+  background-color:$purple;
+  border-color: $purple;
 }
-.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+.navbar-inverse .navbar-nav > .active > a,
+.navbar-inverse .navbar-nav > .active > a:hover,
+.navbar-inverse .navbar-nav > .active > a:focus {
   background-color: #8a6cf2;
 }
 .navbar-inverse .navbar-brand {

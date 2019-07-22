@@ -32,13 +32,14 @@ class Category extends \yii\db\ActiveRecord
   public function attributeLabels()
   {
     return [
-      'id' => '分类 ID',
+      'id' => '分类',
       'name' => '分类名称',
+      'position' => '排序',
     ];
   }
   
   // 获取所有分类
-  public static function getAllCategory() {
+  public static function getAll() {
     $cate = ['0' => '暂无分类'];
     $res = self::find()-> asArray() -> all();
     if ($res) {

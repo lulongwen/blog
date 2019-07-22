@@ -6,9 +6,9 @@ use Yii;
 use common\models\Post;
 use common\models\PostSearch;
 use common\models\Category;
-// use common\models\PostForm;
 use common\models\Comment;
 
+use backend\models\PostForm;
 
 use yii\web\Controller;
 use yii\web\NotFoundHttpException; // 404
@@ -25,7 +25,7 @@ class PostController extends Controller
   public function behaviors()
   {
     return [
-      /*'access' => [
+      'access' => [
         'class' => AccessControl::className(),
         'only' => ['index', 'create', 'upload'],
         'rules' => [
@@ -35,12 +35,12 @@ class PostController extends Controller
             'roles' => ['?'], // ? 所有人都可以看到
           ],
           [
-            'actions' => ['create', 'upload'],
+            'actions' => ['index', 'view', 'create', 'update', 'delete', 'upload'],
             'allow' => true,
             'roles' => ['@'],
           ],
         ],
-      ],*/
+      ],
 
       'verbs' => [
         'class' => VerbFilter ::className(),
@@ -52,7 +52,8 @@ class PostController extends Controller
       ],
     ];
   }
-  
+
+
   // actions 等同于 actionUpload
   public function actions()
   {
@@ -80,6 +81,9 @@ class PostController extends Controller
   
   public function actionIndex()
   {
+    // 查询所有文章
+    // $model = Post::find()->asArray()-> all();
+
     $searchModel = new PostSearch();
     $dataProvider = $searchModel -> search(Yii ::$app -> request -> queryParams);
     
@@ -90,32 +94,48 @@ class PostController extends Controller
   }
 
 
-
-  public function actionIndex2() {
-    $model = Post::find()->asArray()-> all();
-    return $this->render('index', ['model' => $model]);
-  }
-  
-  /**
-   * Displays a single Post model.
-   * @param integer $id
-   * @return mixed
-   * @throws NotFoundHttpException if the model cannot be found
-   */
+  //
   public function actionView($id)
   {
     return $this -> render('view', [
       'model' => $this -> findModel($id),
     ]);
   }
-  
-  /**
-   * Creates a new Post model.
-   * If creation is successful, the browser will be redirected to the 'view' page.
-   * @return mixed
-   */
-  public function actionCreate()
+
+
+  // 创建文章
+  public function actionCreate() {
+    // 权限检查
+    if (!Yii::$app-> user-> can('createPost')) {
+      throw new ForbiddenHttpException('您没有该操作的权限，请联系管理员');
+    }
+
+    $model = new PostForm();
+    // 定义场景
+    $model-> setScenario(PostForm::SCENARIO_CREATE);
+
+    if ($model-> load(Yii::$app-> request-> post()) && $model-> validate()) {
+      if (!$model-> create()) {
+        Yii::$app-> session-> setFlash('warning', $model-> _lastError);
+      }
+      else { // 创建成功跳转到预览
+        return $this-> redirect(['post/detail', 'id' => $model-> id]);
+      }
+    }
+
+    // 获取所有的分类
+    $cate = Category::getAll();
+    return $this->render('create', ['model' => $model, 'cate' => $cate]);
+  }
+
+
+
+
+
+  //  创建文章，创建成功跳转到 view.php
+  public function actionCreate2()
   {
+    // 权限检查
     if (!Yii::$app-> user-> can('createPost')) {
       throw new ForbiddenHttpException('您没有该操作的权限，请联系管理员');
     }
@@ -139,24 +159,6 @@ class PostController extends Controller
   }
 
 
-  public function actionCreate2() {
-    $model = new Post();
-    // 定义场景
-    $model-> setScenario(Post::SCENARIO_CREATE);
-    if ($model-> load(Yii::$app-> request-> post()) && $model-> validate()) {
-      if (!$model-> create()) {
-        Yii::$app-> session-> setFlash('warning', $model-> _lastError);
-      }
-      else { // 创建成功跳转到预览
-        return $this-> redirect(['post/detail', 'id' => $model-> id]);
-      }
-    }
-    
-    $cate = Category::getAll(); // 获取所有的分类
-    return $this->render('create', ['model' => $model, 'cate' => $cate]);
-  }
-
-
 
   // 文章详情
   public function actionDetail($id) {
@@ -173,43 +175,31 @@ class PostController extends Controller
 
 
   
-  /**
-   * Updates an existing Post model.
-   * If update is successful, the browser will be redirected to the 'view' page.
-   * @param integer $id
-   * @return mixed
-   * @throws NotFoundHttpException if the model cannot be found
-   */
+  // 修改文章
   public function actionUpdate($id)
   {
     if (!Yii::$app-> user-> can('updatePost')) {
       throw new ForbiddenHttpException('您没有该操作的权限，请联系管理员');
     }
-    
+
     $model = $this -> findModel($id);
     // 更新时，把更新时间设置为当前时间，当执行 save时，保存的就是当前时间
     // 业务逻辑尽量避免放在控制器中间，应该放在模型文件中 Model
     // $model-> updated_at = time();
-    
+
     if ($model -> load(Yii ::$app -> request -> post()) && $model -> save()) {
       // echo '<pre>';
       // var_dump($model); exit();
       return $this -> redirect(['view', 'id' => $model -> id]);
     }
-  
-    
+
+
     return $this -> render('update', [
       'model' => $model,
     ]);
   }
   
-  /**
-   * Deletes an existing Post model.
-   * If deletion is successful, the browser will be redirected to the 'index' page.
-   * @param integer $id
-   * @return mixed
-   * @throws NotFoundHttpException if the model cannot be found
-   */
+  // 删除文章
   public function actionDelete($id)
   {
     if (!Yii::$app-> user-> can('deletePost')) {
@@ -233,6 +223,6 @@ class PostController extends Controller
       return $model;
     }
     
-    throw new NotFoundHttpException('The requested page does not exist.');
+    throw new NotFoundHttpException('请求的页面不存在');
   }
 }

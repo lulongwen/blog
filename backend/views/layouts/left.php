@@ -17,19 +17,40 @@
       [
         'options' => ['class' => 'sidebar-menu tree', 'data-widget' => 'tree'],
         'items' => [
+          [
+            'label' => '内容管理',
+            'icon' => 'share',
+            'url' => '#',
+            'items' => [
+              ['label' => '文章管理', 'icon' => 'file-word-o',
+                'url' => ['post/index'],
+              ],
+              ['label' => '评论管理', 'icon' => 'file-word-o',
+                'url' => ['comment/index'],
+              ],
+              ['label' => '分类管理', 'icon' => 'file-word-o',
+                'url' => ['category/index'],
+              ],
+              ['label' => '标签管理', 'icon' => 'file-word-o',
+                'url' => ['tag/index'],
+              ],
+              ['label' => '内容回收站', 'icon' => 'file-word-o',
+                'url' => ['bin/index'],
+              ],
+            ],
+          ],
+          ['label' => '创建文章', 'icon' => 'file-word-o',
+            'url' => ['post/create'],
+          ],
+
           // ['label' => '管理员', 'options' => ['class' => 'header']], 下拉选项
           ['label' => '管理员', 'icon' => 'user-secret',
             'url' => ['adminuser/index']
           ],
-          ['label' => '文章管理', 'icon' => 'file-word-o',
-            'url' => ['post/index'],
-          ],
-          ['label' => '评论管理', 'icon' => 'file-word-o',
-            'url' => ['comment/index'],
-          ],
-          ['label' => '用户管理', 'icon' => 'file-word-o',
+          ['label' => '前台用户', 'icon' => 'file-word-o',
             'url' => ['user/index'],
           ],
+
           ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
           ['label' => '登录', 'url' => ['site/login'],
             'visible' => Yii::$app->user->isGuest],

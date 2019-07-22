@@ -52,12 +52,8 @@ class PostController extends Controller
     ]);
   }
   
-  /**
-   * Displays a single Post model.
-   * @param integer $id
-   * @return mixed
-   * @throws NotFoundHttpException if the model cannot be found
-   */
+
+  //
   public function actionView($id)
   {
     return $this -> render('view', [
@@ -65,12 +61,9 @@ class PostController extends Controller
     ]);
   }
   
-  /**
-   * Creates a new Post model.
-   * If creation is successful, the browser will be redirected to the 'view' page.
-   * @return mixed
-   */
-  public function actionCreate()
+
+  // 创建文章
+  /*public function actionCreate()
   {
     $model = new Post();
     
@@ -81,16 +74,12 @@ class PostController extends Controller
     return $this -> render('create', [
       'model' => $model,
     ]);
-  }
+  }*/
   
-  /**
-   * Updates an existing Post model.
-   * If update is successful, the browser will be redirected to the 'view' page.
-   * @param integer $id
-   * @return mixed
-   * @throws NotFoundHttpException if the model cannot be found
-   */
-  public function actionUpdate($id)
+
+
+  // 修改文章
+  /*public function actionUpdate($id)
   {
     $model = $this -> findModel($id);
     
@@ -101,29 +90,19 @@ class PostController extends Controller
     return $this -> render('update', [
       'model' => $model,
     ]);
-  }
+  }*/
   
-  /**
-   * Deletes an existing Post model.
-   * If deletion is successful, the browser will be redirected to the 'index' page.
-   * @param integer $id
-   * @return mixed
-   * @throws NotFoundHttpException if the model cannot be found
-   */
-  public function actionDelete($id)
+
+
+  // 删除文章，删除成功，跳转到首页
+  /*public function actionDelete($id)
   {
     $this -> findModel($id) -> delete();
     
     return $this -> redirect(['index']);
-  }
+  }*/
   
-  /**
-   * Finds the Post model based on its primary key value.
-   * If the model is not found, a 404 HTTP exception will be thrown.
-   * @param integer $id
-   * @return Post the loaded model
-   * @throws NotFoundHttpException if the model cannot be found
-   */
+
   protected function findModel($id)
   {
     if (($model = Post ::findOne($id)) !== null) {
@@ -134,15 +113,15 @@ class PostController extends Controller
   }
   
 
-      // $model = new Post();
-      // $data = $model-> getDetailId($id);
-      //
-      // //文章 pv 统计，要把 id 字段，数量给带过去
-      // $model = new CommentModel();
-      // $model-> getCounter(['post_id' => $id],  'pv', 1);
-      //
-      // // print_r($data); exit();
-      // return $this->render('detail', ['data' => $data]);
+  // $model = new Post();
+  // $data = $model-> getDetailId($id);
+  //
+  // //文章 pv 统计，要把 id 字段，数量给带过去
+  // $model = new CommentModel();
+  // $model-> getCounter(['post_id' => $id],  'pv', 1);
+  //
+  // // print_r($data); exit();
+  // return $this->render('detail', ['data' => $data]);
   
   // 文章详情
   public function actionDetail($id) {
@@ -150,9 +129,14 @@ class PostController extends Controller
     $model = $this-> findModel($id);
     $tags = Tag::findTags();
     $replyComments = Comment::findReplyComments();
+
     $user = User::findOne(Yii::$app->user->id);
     // 当前会员的资料的数据
     $comment = new Comment();
+
+    // echo '<pre>';
+    // var_dump($user); exit(0);
+
     $comment -> email = $user -> email;
     $comment -> userid = $user-> id;
     

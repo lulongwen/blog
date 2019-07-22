@@ -65,7 +65,7 @@
     [
       'attribute' => 'updated_at',
       // 'value' => date('Y-m-d H:i:s', $model->updated_at),
-      'format' => ['date', 'php:Y-m-d H:i']
+      'format' => ['date', 'php:Y-m-d H:i:s']
     ],
     // 'userid',
     // 'status',

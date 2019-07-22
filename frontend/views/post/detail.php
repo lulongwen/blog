@@ -22,7 +22,7 @@ use frontend\components\TagsCloud;
     </header>
     <footer>
       <span>作者：<?= $model -> user -> username ?></span>
-      <span>浏览：<?= $model -> postStatus -> pv ?> 次</span>
+      <span>浏览：<?= $model -> postStatus['pv'] ?> 次</span>
       <span>发布日期：<?= date('Y-m-d', $model['created_at']) ?></span>
     </footer>
   </section>

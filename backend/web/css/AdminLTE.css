@@ -3217,16 +3217,15 @@ table.text-center th {
  */
 .login-logo,
 .register-logo {
-  font-size: 35px;
+  font-size: 32px;
   text-align: center;
   margin-bottom: 25px;
   font-weight: 300;
 }
-.login-logo a,
+.login-logo,
 .register-logo a {
-  color: #444;
+  color: #fff;
 }
-.login-page,
 .register-page {
   height: auto;
   background: #d2d6de;
@@ -3245,7 +3244,7 @@ table.text-center th {
 }
 .login-box-body,
 .register-box-body {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.6);
   padding: 20px;
   border-top: 0;
   color: #666;

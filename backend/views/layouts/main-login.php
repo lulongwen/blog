@@ -10,7 +10,6 @@ use dmstr\web\AdminLteAsset;
 // echo '<pre>';
 // print_r($this);
 
-// exit();
 dmstr\web\AdminLteAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -23,6 +22,7 @@ dmstr\web\AdminLteAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
   <link rel="stylesheet" href="css/AdminLTE.css">
+  <link rel="stylesheet" href="css/index.css">
 </head>
 <body class="login-page">
 

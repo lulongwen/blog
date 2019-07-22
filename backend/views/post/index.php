@@ -1,7 +1,9 @@
 <?php
 
   use yii\helpers\Html;
+  use yii\helpers\Url;
   use yii\grid\GridView;
+
 
   /* @var $this yii\web\View */
   /* @var $searchModel common\models\PostSearch */
@@ -34,7 +36,14 @@
       'attribute' => 'id',
       'contentOptions' => ['width' => '60px']
     ],
-    'title',
+    'title' => [
+      'attribute' => 'title',
+      'format' => 'raw',
+      'value' => function($model) {
+        $frontend = Yii::$app->params['frontend'];
+        return '<a href="'.$frontend. Url::to(['post/detail', 'id' => $model-> id]) .'">'. $model->title .'</a>';
+      }
+    ],
     [
       // 'attribute' => 'userid',
       'attribute' => 'authName',
@@ -43,6 +52,8 @@
     ],
     'tags',
     'summary:ntext',
+
+    'category.name', // 不能搜索
     [
       'attribute' => 'categoryName',
       'label' => '分类',

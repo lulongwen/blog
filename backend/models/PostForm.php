@@ -11,7 +11,7 @@
  * 并不是所有的属性都关联数据库的字段
  */
 
-namespace frontend\models;
+namespace backend\models;
 
 use Yii;
 use yii\base\Model;
@@ -27,11 +27,13 @@ class PostForm extends Model {
   public $content;
   public $summary;
   public $thumbnail;
-  public $tag;
+  public $tags;
   public $status;
-  public $category_id;
+  public $categoryid;
   public $_lastError = '';
 
+  public $userid;
+  public $username;
 
   // 定义事件，创建成功和更新后的事件
   const EV_AFTER_CREATE = 'afterCreate';
@@ -42,12 +44,14 @@ class PostForm extends Model {
   const SCENARIO_CREATE = 'create';
   const SCENARIO_UPDATE = 'update';
 
+
   public function scenarios() {
     $scenarios = [
       // 场景定义了 创建修改时，可以修改的的字段
-      self::SCENARIO_CREATE => ['title', 'content', 'thumbnail', 'summary', 'status', 'category_id', 'tag'],
+      self::SCENARIO_CREATE => ['title', 'content', 'thumbnail', 'summary', 'status', 'categoryid', 'tag'],
 
-      self::SCENARIO_UPDATE => ['title', 'content', 'thumbnail', 'summary', 'status', 'category_id', 'tag'],
+      // 修改时的场景，修改时可以修改哪些字段
+      self::SCENARIO_UPDATE => ['id', 'title', 'content', 'thumbnail', 'summary', 'status', 'categoryid', 'tag'],
     ];
 
     // 合并场景，并返回
@@ -58,7 +62,7 @@ class PostForm extends Model {
   // 表单验证规则，依据数据库表的设计
   public function rules() {
     return [
-      [['id', 'title', 'content', 'category_id'], 'required'],
+      [['id', 'title', 'content', 'categoryid'], 'required'],
       [['summary', 'content'], 'string'],
       [['author_id', 'category_id', 'status', 'created_at', 'updated_at'], 'integer'],
       [['title'], 'string', 'max' => 200],
@@ -85,13 +89,14 @@ class PostForm extends Model {
       'summary' => '文章描述',
       'content' => '文章内容',
       'thumbnail' => '缩略图',
-      'userid' => '作者 ID',
+      'userid' => '作者',
       'username' => '用户名',
-      'category_id' => '分类 ID',
+      'categoryid' => '文章分类',
       'tags' => '文章标签',
       'status' => '是否发布',
     ];
   }
+
 
   // 获取文章数据
   public static function getList($where, $page=1, $pageSize=5, $orderBy=['id' => SORT_DESC]) {
@@ -143,6 +148,7 @@ class PostForm extends Model {
   public function create() {
     // 多表操作，用事务处理，让数据保持完整
     $transaction = Yii::$app-> db-> beginTranscation();
+
     try {
       $model = new Post();
       // 把数据设置到 new Post里面，$model是数据库的字段
@@ -157,9 +163,13 @@ class PostForm extends Model {
 
       if (!$model-> save()) throw new \Exception('文章保存失败'. $model-> getErrors());
 
+      // 创建成功，要用 id跳转到对应的页面
       $this-> id = $model-> id;
+
       // 调用事件的数据，比如，保存文章后添加积分，事件要有一个参数去实现
       $data = array_merge($this-> getAttributes(), $model-> getAttributes());
+
+      // 调用事件，文章创建完成后去做的很多事情，观察者模式去实现事件
       $this-> _evAfterCreate($data);
 
       $transaction -> commit();
@@ -169,7 +179,7 @@ class PostForm extends Model {
       // 失败就回滚
       $transaction -> rollBack();
       $this-> _lastError = $err-> getMessage();
-      return false;
+      return null;
     }
   }
 
@@ -216,7 +226,7 @@ class PostForm extends Model {
   // 如果没有描述，就截取文章作为描述
   private function _getSummary($start=0, $end=120, $charset='utf-8') {
     if (empty($this->content)) return null;
-    // 去除空格
+    // 去除空格，过滤 html标签
     $str = str_replace(' ', '', strip_tags($this-> content));
 
     return mb_substr($str, $start, $end, $charset);
