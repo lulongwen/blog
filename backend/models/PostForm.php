@@ -123,10 +123,15 @@ class PostForm extends Model {
   // 通过 id 获取文章详情，文章关联标签，需要把标签给取出来
   public function getDetail($id) {
     // Post::find() -> where(['id' => $id]) -> asArray() -> one();
-    $res = Post::find() -> with('relate.tag', 'comment')
+    $res = Post::find()
+      -> with('relate.tag', 'comment')
       -> where(['id' => $id]) -> asArray() -> one();
-    // 如果没有找到数据 404
+
+    // 如果没有找到数据 404，针对随便输入 id的问题
     if (!$res) throw new NotFoundHttpException('文章不存在', 404);
+
+    echo '<pre>';
+    print_r($res); exit(0);
 
     // 处理标签格式
     $res['tags'] = [];

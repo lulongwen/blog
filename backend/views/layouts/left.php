@@ -6,9 +6,10 @@
       <div class="input-group">
         <input type="text" name="q" class="form-control" placeholder="Search..."/>
         <span class="input-group-btn">
-                <button type='submit' name='search' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
+          <button type='submit' name='search' id='search-btn' class="btn btn-flat">
+            <i class="fa fa-search"></i>
+          </button>
+        </span>
       </div>
     </form>
     <!-- /.search form -->
@@ -25,33 +26,33 @@
               ['label' => '文章管理', 'icon' => 'file-word-o',
                 'url' => ['post/index'],
               ],
-              ['label' => '评论管理', 'icon' => 'file-word-o',
+              ['label' => '评论管理', 'icon' => 'comments',
                 'url' => ['comment/index'],
               ],
-              ['label' => '分类管理', 'icon' => 'file-word-o',
+              ['label' => '分类管理', 'icon' => 'folder',
                 'url' => ['category/index'],
               ],
-              ['label' => '标签管理', 'icon' => 'file-word-o',
+              ['label' => '标签管理', 'icon' => 'tags',
                 'url' => ['tag/index'],
               ],
-              ['label' => '内容回收站', 'icon' => 'file-word-o',
+              ['label' => '内容回收站', 'icon' => 'trash',
                 'url' => ['bin/index'],
               ],
             ],
           ],
-          ['label' => '创建文章', 'icon' => 'file-word-o',
+          ['label' => '发表文章', 'icon' => 'edit',
             'url' => ['post/create'],
           ],
 
           // ['label' => '管理员', 'options' => ['class' => 'header']], 下拉选项
-          ['label' => '管理员', 'icon' => 'user-secret',
+          ['label' => '管理员', 'icon' => 'group',
             'url' => ['adminuser/index']
           ],
-          ['label' => '前台用户', 'icon' => 'file-word-o',
+          ['label' => '前台用户', 'icon' => 'user',
             'url' => ['user/index'],
           ],
 
-          ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii']],
+          ['label' => 'Gii', 'icon' => 'code', 'url' => ['/gii']],
           ['label' => '登录', 'url' => ['site/login'],
             'visible' => Yii::$app->user->isGuest],
 
@@ -70,7 +71,7 @@
 
           [
             'label' => '系统工具',
-            'icon' => 'share',
+            'icon' => 'wrench',
             'url' => '#',
             'items' => [
               ['label' => 'Gii', 'icon' => 'file-code-o', 'url' => ['/gii'],],

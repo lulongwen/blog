@@ -13,9 +13,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-/**
- * PostController implements the CRUD actions for Post model.
- */
+
 class PostController extends Controller
 {
   public $added = 0; // 0代表还没有新回复
@@ -33,11 +31,13 @@ class PostController extends Controller
     ];
   }
   
-  
+
+  // 列表页
   public function actionIndex()
   {
     // 把标签云数组传递给视图文件
     $tags = Tag::findTags();
+
     // 获取评论给 列表页渲染
     $comments = Comment::findReplyComments();
     
@@ -51,57 +51,7 @@ class PostController extends Controller
       'comments' => $comments
     ]);
   }
-  
 
-  //
-  public function actionView($id)
-  {
-    return $this -> render('view', [
-      'model' => $this -> findModel($id),
-    ]);
-  }
-  
-
-  // 创建文章
-  /*public function actionCreate()
-  {
-    $model = new Post();
-    
-    if ($model -> load(Yii ::$app -> request -> post()) && $model -> save()) {
-      return $this -> redirect(['view', 'id' => $model -> id]);
-    }
-    
-    return $this -> render('create', [
-      'model' => $model,
-    ]);
-  }*/
-  
-
-
-  // 修改文章
-  /*public function actionUpdate($id)
-  {
-    $model = $this -> findModel($id);
-    
-    if ($model -> load(Yii ::$app -> request -> post()) && $model -> save()) {
-      return $this -> redirect(['view', 'id' => $model -> id]);
-    }
-    
-    return $this -> render('update', [
-      'model' => $model,
-    ]);
-  }*/
-  
-
-
-  // 删除文章，删除成功，跳转到首页
-  /*public function actionDelete($id)
-  {
-    $this -> findModel($id) -> delete();
-    
-    return $this -> redirect(['index']);
-  }*/
-  
 
   protected function findModel($id)
   {
@@ -109,21 +59,11 @@ class PostController extends Controller
       return $model;
     }
     
-    throw new NotFoundHttpException('The requested page does not exist.');
+    throw new NotFoundHttpException('页面没有找到', 404);
   }
-  
 
-  // $model = new Post();
-  // $data = $model-> getDetailId($id);
-  //
-  // //文章 pv 统计，要把 id 字段，数量给带过去
-  // $model = new CommentModel();
-  // $model-> getCounter(['post_id' => $id],  'pv', 1);
-  //
-  // // print_r($data); exit();
-  // return $this->render('detail', ['data' => $data]);
   
-  // 文章详情
+  // 前台只显示，文章详情
   public function actionDetail($id) {
     // 1 准备数据，文章，标签，最新回复的数据
     $model = $this-> findModel($id);
@@ -133,6 +73,17 @@ class PostController extends Controller
     $user = User::findOne(Yii::$app->user->id);
     // 当前会员的资料的数据
     $comment = new Comment();
+
+
+    // $model = new Post();
+    // $data = $model-> getDetailId($id);
+    //
+    // //文章 pv 统计，要把 id 字段，数量给带过去
+    // $model = new CommentModel();
+    // $model-> getCounter(['post_id' => $id],  'pv', 1);
+    //
+    // // print_r($data); exit();
+    // return $this->render('detail', ['data' => $data]);
 
     // echo '<pre>';
     // var_dump($user); exit(0);
