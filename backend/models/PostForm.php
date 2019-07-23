@@ -17,8 +17,11 @@ use Yii;
 use yii\base\Model;
 use yii\db\Query;
 
-use common\model\Post;
+use common\models\Post;
 use common\models\PostTag;
+use backend\models\TagForm;
+
+
 use yii\web\NotFoundHttpException;
 
 class PostForm extends Model {
@@ -67,7 +70,7 @@ class PostForm extends Model {
       [['author_id', 'category_id', 'status', 'created_at', 'updated_at'], 'integer'],
       [['title'], 'string', 'max' => 200],
       [['thumbnail'], 'string', 'max' => 120],
-      [['username', 'tag'], 'string', 'max' => 80],
+      [['username', 'tags'], 'string', 'max' => 80],
       /* 表的关联
       [
         ['status'],
@@ -118,7 +121,7 @@ class PostForm extends Model {
 
 
   // 通过 id 获取文章详情，文章关联标签，需要把标签给取出来
-  public function getDetailId($id) {
+  public function getDetail($id) {
     // Post::find() -> where(['id' => $id]) -> asArray() -> one();
     $res = Post::find() -> with('relate.tag', 'comment')
       -> where(['id' => $id]) -> asArray() -> one();
@@ -147,15 +150,16 @@ class PostForm extends Model {
   // 创建文章，涉及到多表操作，文章表，标签表，状态表
   public function create() {
     // 多表操作，用事务处理，让数据保持完整
-    $transaction = Yii::$app-> db-> beginTranscation();
+    $transaction = Yii::$app-> db-> beginTransaction();
 
     try {
+      // 所有的数据处理，都放在 models里面，逻辑处理放在 Form里面
       $model = new Post();
       // 把数据设置到 new Post里面，$model是数据库的字段
       $model -> setAttributes($this-> attributes);
 
       // 字段不能满足数据库的要求，要自定义字段
-      // $model-> summary = $this-> _getSummary(); // 如果没有描述，截取前120个字符
+      // $model-> summary =  $this-> _getSummary(); // 如果没有描述，截取前120个字符
       $model-> userid = Yii::$app-> user-> identity-> id;
       $model-> username = Yii::$app-> user-> identity-> username;
       // $model-> created_at = time();
@@ -168,7 +172,6 @@ class PostForm extends Model {
 
       // 调用事件的数据，比如，保存文章后添加积分，事件要有一个参数去实现
       $data = array_merge($this-> getAttributes(), $model-> getAttributes());
-
       // 调用事件，文章创建完成后去做的很多事情，观察者模式去实现事件
       $this-> _evAfterCreate($data);
 
@@ -185,40 +188,43 @@ class PostForm extends Model {
 
   // 创建完成后执行的事件，比如，用户发布文章添加积分
   private function _evAfterCreate($data) {
-    // 添加事件，需要调用的方法 _eventAddTag 事件注册到 EVENT_AFTER_CREATE
-    $this-> on(self::EVENT_AFTER_CREATE, [$this, self::EV_ADD_TAG], $data);
+    // 添加事件，需要调用的方法
+    // _eventAddTag 事件注册到 EVENT_AFTER_CREATE  类，  对应的方法名          数据
+    // $this-> on(self::EV_AFTER_CREATE, [$this, self::EV_ADD_TAG], $data);
+    $this-> on(self::EV_AFTER_CREATE, [$this, '_evAddTag'], $data);
+    
+    // 第二个事件，可以添加多个事件
+    // $this-> on(self::EVENT_AFTER_CREATE,[$this, self::EV_ADD_TWO], $data);
 
     // 触发事件, off 取消事件
     $this-> trigger(self::EV_AFTER_CREATE);
-
-    // 第二个事件，可以添加多个事件
-    // $this-> on(self::EVENT_AFTER_CREATE,[$this, self::EV_ADD_TAG], $data);
   }
 
 
   // 添加标签
-  private function _evAddTag($event) {
+  public function _evAddTag($event) {
     // print_r($event-> data);
     // 保存标签
-    $tag = new Tag();
-    $tag -> tag = $event -> data['tag'];
-    $ids = $tag-> saveTag();
+    $tag = new TagForm();
+    // 调用传参数的字段 tags
+    $tag -> tag = $event -> data['tags'];
+    $tagid = $tag-> saveTag();
 
     // 删除原来的关联关系，用在修改时
-    PostTag::deleteAll(['post_id' => $event-> data['id']]);
+    PostTag::deleteAll(['postid' => $event-> data['id']]);
 
     // 批量保存文章和标签的关联关系，如果没有关联 return
-    if (!empty($ids)) {
-      foreach($ids as $key => $val) {
+    if (!empty($tagid)) {
+      foreach($tagid as $key => $val) {
         $row[$key]['postid'] = $this-> id;
         $row[$key]['tagid'] = $val;
       }
       // 批量保存
       $res = (new Query()) -> createCommand()
-        -> batchInsert(PostTag::tableName(), ['postId', 'tagid'], $row)
+        -> batchInsert(PostTag::tableName(), ['postid', 'tagid'], $row)
         -> execute();
 
-      if (!$res) die('保存关联标签思辨');
+      if (!$res) die('保存关联标签失败');
     }
   }
 

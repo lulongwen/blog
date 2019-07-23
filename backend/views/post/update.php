@@ -11,7 +11,9 @@ $this -> params['breadcrumbs'][] = ['label' => $model -> title, 'url' => ['view'
 $this -> params['breadcrumbs'][] = '更新';
 ?>
 
-<h1><?= Html ::encode($this -> title) ?></h1>
+<header class="admin-index">
+  <h1><?= Html ::encode($this -> title) ?></h1>
+</header>
 
 <!-- 渲染视图模版 _form.php -->
 <?= $this -> render('_form', ['model' => $model]) ?>

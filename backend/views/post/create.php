@@ -10,7 +10,9 @@ $this -> params['breadcrumbs'][] = ['label' => '文章列表', 'url' => ['index'
 $this -> params['breadcrumbs'][] = $this -> title;
 ?>
 
-<h1><?= Html ::encode($this -> title) ?></h1>
+<header class="admin-index">
+  <h1><?= Html ::encode($this -> title) ?></h1>
+</header>
 
 <?= $this -> render('_form', ['model' => $model]) ?>
 

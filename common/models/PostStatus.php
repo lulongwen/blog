@@ -5,11 +5,15 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%_post_status}}".
+ * This is the model class for table "{{%post_status}}".
  *
- * @property string $id
- * @property string $name
- * @property int $position
+ * @property int $id 自增 id
+ * @property int $postid 文章 id
+ * @property int $position 排序
+ * @property int $pv pv 网页浏览量
+ * @property int $praise 点赞
+ * @property int $collect 收藏
+ * @property string $name 文章状态，0草稿，1已发布，2已归档
  */
 class PostStatus extends \yii\db\ActiveRecord
 {
@@ -27,9 +31,9 @@ class PostStatus extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'position'], 'required'],
-            [['position'], 'integer'],
-            [['name'], 'string', 'max' => 120],
+            [['postid', 'position'], 'required'],
+            [['postid', 'position', 'pv', 'praise', 'collect'], 'integer'],
+            [['name'], 'string', 'max' => 20],
         ];
     }
 
@@ -40,8 +44,12 @@ class PostStatus extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'postid' => 'Postid',
             'position' => 'Position',
+            'pv' => 'Pv',
+            'praise' => 'Praise',
+            'collect' => 'Collect',
+            'name' => 'Name',
         ];
     }
 }

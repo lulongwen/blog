@@ -2,6 +2,8 @@
 
 namespace common\models;
 
+use common\models\PostTag;
+
 use Yii;
 use yii\helpers\Html;
 
@@ -64,14 +66,14 @@ class Post extends \yii\db\ActiveRecord
   // 文章表和标签表的关联关系
   public function getRelate()
   {
-    return $this -> hasMany(PosTag ::className(), ['postid' => 'id']);
+    // return $this -> hasMany(PostTag ::className(), ['postid' => 'id']);
   }
 
 
   // 获取文章评论
   public function getComments()
   {
-    return $this -> hasMany(Comment ::className(), ['postid' => 'id']);
+    // return $this -> hasMany(Comment ::className(), ['postid' => 'id']);
   }
   
   // 获取文章已审核的评论

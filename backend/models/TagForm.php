@@ -6,20 +6,23 @@
  * Time: 08:20
  */
 
-namespace frontend\models;
+namespace backend\models;
 
 use yii\base\Model;
 use common\models\Tag;
 
+// 表单模型，逻辑处理放在 Form里面，数据处理放在 models里面
 class TagForm extends Model {
   public $id;
   public $tag;
 
+  
   public function rules() {
     return [
       ['name', required],
+      // each 遍历
       ['name', 'each', 'rule' => ['string']]
-    ]
+    ];
   }
 
 
@@ -29,10 +32,11 @@ class TagForm extends Model {
     $type = gettype($this-> tag);
 
     if ($type === 'string') $arr = explode(',', $this-> tag);
+    
     // 如果不为空，遍历 tag数组
     if (!empty($arr)) {
       foreach($arr as $tag) {
-        $ids[] = $this-> _saveTag($tag);
+        $ids[] = $this-> _save($tag);
       }
     }
 
@@ -41,9 +45,9 @@ class TagForm extends Model {
 
 
   // 保存标签，参数就是参数名
-  private function _saveTag($tag) {
+  private function _save($tag) {
     $model = new Tag();
-    // 标签不允许重复， find() -> one()
+    // 标签不允许重复
     $res = $model-> find() -> where(['name' => $tag]) -> one();
 
     // 如果没有，就新建标签

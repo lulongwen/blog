@@ -22,7 +22,7 @@ use yii\filters\AccessControl;
 class PostController extends Controller
 {
   // 行为过滤，比如，不能录不能发布文章
-  public function behaviors()
+  /*public function behaviors()
   {
     return [
       'access' => [
@@ -51,7 +51,7 @@ class PostController extends Controller
         ],
       ],
     ];
-  }
+  }*/
 
 
   // actions 等同于 actionUpload
@@ -118,8 +118,9 @@ class PostController extends Controller
       if (!$model-> create()) {
         Yii::$app-> session-> setFlash('warning', $model-> _lastError);
       }
-      else { // 创建成功跳转到预览
-        return $this-> redirect(['post/detail', 'id' => $model-> id]);
+      // 创建成功跳转到预览
+      else {
+        return $this-> redirect(['post/view', 'id' => $model-> id]);
       }
     }
 
