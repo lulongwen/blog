@@ -20,7 +20,7 @@
     public function rules() {
       return [
         [['id', 'userid', 'categoryid', 'status', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
-        [['title', 'summary', 'content', 'thumbnail', 'username', 'authName', 'categoryName'], 'safe'],
+        [['title', 'summary', 'content', 'thumbnail', 'authName', 'categoryName'], 'safe'],
       ];
     }
 
@@ -83,8 +83,7 @@
       $query->andFilterWhere(['like', 'title', $this->title])
         ->andFilterWhere(['like', 'summary', $this->summary])
         ->andFilterWhere(['like', 'content', $this->content])
-        ->andFilterWhere(['like', 'thumbnail', $this->thumbnail])
-        ->andFilterWhere(['like', 'username', $this->username]);
+        ->andFilterWhere(['like', 'thumbnail', $this->thumbnail]);
 
       /* 文章作者关联查询，作者的字符串 来查询姓名
        把文章表和用户表做了一个内连接

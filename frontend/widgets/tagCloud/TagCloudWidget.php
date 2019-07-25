@@ -2,7 +2,7 @@
   namespace frontend\widgets\tagCloud;
   
   use yii\bootstrap\Widget;
-  use common\models\TagModel;
+  use common\models\Tag;
   // use yii\base\Object;
   // use yii\db\Query;
   
@@ -18,7 +18,7 @@
     ];
     
     public function run() {
-      $res = TagModel::find()
+      $res = Tag::find()
         -> orderBy(['frequency' => SORT_DESC])
         ->limit($this-> limit)-> all();
       

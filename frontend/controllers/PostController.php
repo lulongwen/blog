@@ -4,7 +4,9 @@ namespace frontend\controllers;
 
 use Yii;
 use common\models\Post;
+use common\models\PostStatus;
 use common\models\PostSearch;
+
 use common\models\Tag;
 use common\models\Comment;
 use common\models\User;
@@ -62,31 +64,40 @@ class PostController extends Controller
     throw new NotFoundHttpException('页面没有找到', 404);
   }
 
-  
-  // 前台只显示，文章详情
+
   public function actionDetail($id) {
+    // 文章数据
+    $model = new Post();
+    $data = $model-> getViewById($id);
+    $about = $model-> getAbout($id);
+
+    // 文章 pv 浏览量统计，要把 id 字段，数量给带过去，pv 收藏
+    $status = new PostStatus();
+    $tag = $status -> upCounter(['postid' => $id],'pv', 1);
+
+    $data['tag'] = $tag;
+    $tags = Tag::findTags();
+
+    return $this-> render('detail', [
+      'model' => $data,
+      'tags' => $tags,
+      'prev' => $about['prev'],
+      'next' => $about['next']
+    ]);
+  }
+
+
+
+  // 前台只显示，文章详情，带评论功能
+  public function actionDetail2($id) {
     // 1 准备数据，文章，标签，最新回复的数据
     $model = $this-> findModel($id);
     $tags = Tag::findTags();
-    $replyComments = Comment::findReplyComments();
 
+    $replyComments = Comment::findReplyComments();
     $user = User::findOne(Yii::$app->user->id);
     // 当前会员的资料的数据
     $comment = new Comment();
-
-
-    // $model = new Post();
-    // $data = $model-> getDetailId($id);
-    //
-    // //文章 pv 统计，要把 id 字段，数量给带过去
-    // $model = new CommentModel();
-    // $model-> getCounter(['post_id' => $id],  'pv', 1);
-    //
-    // // print_r($data); exit();
-    // return $this->render('detail', ['data' => $data]);
-
-    // echo '<pre>';
-    // var_dump($user); exit(0);
 
     $comment -> email = $user -> email;
     $comment -> userid = $user-> id;
@@ -109,4 +120,6 @@ class PostController extends Controller
       'added' => $this-> added,
     ]);
   }
+
+
 }

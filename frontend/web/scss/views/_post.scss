@@ -28,6 +28,44 @@
 }
 
 
+.post {
+
+  &-header {
+    color: #707070;
+    > h1 {
+      margin: 15px 0;
+      font-size: 24px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    span {
+      padding-right: 15px;
+    }
+  }
+
+  &-main {
+    font-size: 16px;
+    word-break: break-all;
+    word-wrap: break-word;
+
+    p {
+      margin-bottom: 20px;
+      line-height: 1.8;
+    }
+  }
+
+  &-about {
+    margin: 20px 0;
+    height: 100px;
+    line-height: 100px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    color: #707070;
+  }
+}
+
+
 .footer-pager {
   text-align: right;
   height: 75px;

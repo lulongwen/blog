@@ -8,9 +8,10 @@
   namespace frontend\widgets\post;
 
   use Yii;
-  use common\models\Post;
   use yii\bootstrap\Widget;
   use yii\data\Pagination;
+
+  use common\models\Post;
   use yii\helpers\Url;
 
   class PostWidget extends Widget {
@@ -38,6 +39,7 @@
         ]);
         $data['page'] = $pages;
       }
+
       return $this-> render('index', ['data' => $data]);
     }
   }

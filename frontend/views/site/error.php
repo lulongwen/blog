@@ -7,7 +7,9 @@
 
 use yii\helpers\Html;
 
-$this->title = $name;
+// $this->title = $name;
+$this->title = '访问页面不存在';
+
 ?>
 <div class="site-error">
 
@@ -18,10 +20,7 @@ $this->title = $name;
     </div>
 
     <p>
-        The above error occurred while the Web server was processing your request.
-    </p>
-    <p>
-        Please contact us if you think this is a server error. Thank you.
+      <a href="/index">珑文的博客</a>
     </p>
 
 </div>

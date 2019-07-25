@@ -9,6 +9,18 @@
 
   use yii\helpers\Html;
 
+  /*
+   tag
+   <?= implode(',', $model->taglink) ?>
+
+   <?= $model->user->username ?>
+
+   <span>
+      <i class="glyphicon glyphicon-comment"></i>
+      <?= Html::a("评论 ({$model->commentCount})", $model->url . '#comments') ?>
+    </span>
+   */
+
 ?>
 <section class="post-items">
   <h2 class="title">
@@ -21,7 +33,7 @@
     </span>
     <span>
       <i class="glyphicon glyphicon-user"></i>
-      <?= $model->user->username ?>
+      
     </span>
   </p>
 
@@ -30,15 +42,10 @@
   </section>
 
   <footer class="subtags">
-  <span>
-    <i class="glyphicon glyphicon-tag"></i>
-    <?= implode(',', $model->taglink) ?>
-  </span>
-
     <span>
-    <i class="glyphicon glyphicon-comment"></i>
-    <?= Html::a("评论 ({$model->commentCount})", $model->url . '#comments') ?>
-  </span>
+      <i class="glyphicon glyphicon-tag"></i>
+
+    </span>
 
     <span>
     <i class="glyphicon glyphicon-time"></i> 更新时间

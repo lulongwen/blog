@@ -37,12 +37,12 @@
   (function () {
     const chat = document.getElementById('chat')
     const url = chat.dataset.url
-    chat.addEventListener('click', ()=> {
-      const value = document.getElementById('content').value
-      if (!value) return false
-      
-      fnList({url, value})
-    }, false)
+    // chat.addEventListener('click', ()=> {
+    //   const value = document.getElementById('content').value
+    //   if (!value) return false
+    //
+    //   fnList({url, value})
+    // }, false)
     
     function fnList({url, value}) {
       axios.post(url, {value}).then(res => {

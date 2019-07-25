@@ -32,6 +32,6 @@ class HotWidget extends Widget {
         $data['body'] = $res ?: [];
         // $data['more'] = Url::to(['post/index','sort'=>'hot']);
         
-        return $this->render('index',['data'=> $data]);
+        return $this->render('hot',['data'=> $data]);
     }
 }

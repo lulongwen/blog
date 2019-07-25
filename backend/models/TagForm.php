@@ -14,7 +14,7 @@ use common\models\Tag;
 // 表单模型，逻辑处理放在 Form里面，数据处理放在 models里面
 class TagForm extends Model {
   public $id;
-  public $tag;
+  public $tags;
 
   
   public function rules() {
@@ -27,15 +27,16 @@ class TagForm extends Model {
 
 
   // 返回所有的 id集合
-  public function saveTag() {
+  public function saveTags() {
     $ids = [];
-    $type = gettype($this-> tag);
+    $type = gettype($this-> tags);
 
-    if ($type === 'string') $arr = explode(',', $this-> tag);
+    if ($type === 'string') $arr = explode(',', $this-> tags);
     
     // 如果不为空，遍历 tag数组
     if (!empty($arr)) {
       foreach($arr as $tag) {
+        // 业务逻辑多，就单独拆分
         $ids[] = $this-> _save($tag);
       }
     }
@@ -50,18 +51,20 @@ class TagForm extends Model {
     // 标签不允许重复
     $res = $model-> find() -> where(['name' => $tag]) -> one();
 
-    // 如果没有，就新建标签
-    if (!res) {
-      $model -> name = $tag;
-      $model -> frequency = 1;
-
-      if (!$model-> save()) throw new \Exception('文章标签保存失败');
-      // 没有 $res 就返回 $model的  id
-      return $model -> id;
+    if ($res) {
+      // 如标签存在 +1 ，返回保存成功的 id
+      $res -> updateCounters(['frequency' => 1]);
+      return $res -> id;
     }
 
-    // 如标签存在 +1 ，返回保存成功的 id
-    $res -> updateCounters(['frequency' => 1]);
-    return $res -> id;
+    // 如果没有，就新建标签
+    $model -> name = $tag;
+    $model -> frequency = 1;
+
+    if (!$model-> save()) throw new \Exception('文章标签保存失败');
+    // 新建标签，返回标签的 id
+    return $model -> id;
+
+
   }
 }

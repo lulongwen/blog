@@ -42,8 +42,10 @@
     }
 
 
-    // 获取 标签的关联关系
+    // 获取 标签的关联关系，一对一的关系
+    // 一条数据对应一篇文章和一个标签
     public function getTag() {
+      // 和标签表 Tag关联，Tag表的 id 指向 PostTag的 tagid
       return $this-> hasOne(Tag::className(), ['id' => 'tagid']);
     }
 

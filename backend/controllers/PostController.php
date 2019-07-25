@@ -22,7 +22,7 @@ use yii\filters\AccessControl;
 class PostController extends Controller
 {
   // 行为过滤，比如，不能录不能发布文章
-  /*public function behaviors()
+  public function behaviors()
   {
     return [
       'access' => [
@@ -51,7 +51,7 @@ class PostController extends Controller
         ],
       ],
     ];
-  }*/
+  }
 
 
   // actions 等同于 actionUpload
@@ -94,12 +94,16 @@ class PostController extends Controller
   }
 
 
-  //
-  public function actionView($id)
-  {
-    return $this -> render('view', [
-      'model' => $this -> findModel($id),
-    ]);
+  // 查看文章
+  public function actionView($id) {
+
+    // $model = new Post();
+    // $data = $model-> getViewById($id);
+    // echo '<pre>';
+    // var_dump($id, $data); exit();
+
+    $model = $this-> findModel($id);
+    return $this -> render('view', ['model' => $model ]);
   }
 
 
@@ -116,64 +120,17 @@ class PostController extends Controller
 
     if ($model-> load(Yii::$app-> request-> post()) && $model-> validate()) {
       if (!$model-> create()) {
-        Yii::$app-> session-> setFlash('warning', $model-> _lastError);
+        return Yii::$app-> session-> setFlash('warning', $model-> _lastError);
       }
+
       // 创建成功跳转到预览
-      else {
-        return $this-> redirect(['post/view', 'id' => $model-> id]);
-      }
+      return $this-> redirect(['post/view', 'id' => $model-> id]);
     }
 
     // 获取所有的分类
     $cate = Category::getAll();
     return $this->render('create', ['model' => $model, 'cate' => $cate]);
   }
-
-
-
-
-
-  //  创建文章，创建成功跳转到 view.php
-  public function actionCreate2()
-  {
-    // 权限检查
-    if (!Yii::$app-> user-> can('createPost')) {
-      throw new ForbiddenHttpException('您没有该操作的权限，请联系管理员');
-    }
-    
-    $model = new Post();
-    // 获取所有分类
-    $category = Category::getAllCategory();
-    // return $this-> render('create', ['model' => $model, 'cate' => $category]);
-  
-    // 业务逻辑尽量避免放在控制器中间
-    // $model-> created_at = time();
-    // $model-> updated_at = time();
-    
-    if ($model -> load(Yii ::$app -> request -> post()) && $model -> save()) {
-      return $this -> redirect(['view', 'id' => $model -> id]);
-    }
-    
-    return $this -> render('create', [
-      'model' => $model,
-    ]);
-  }
-
-
-
-  // 文章详情
-  public function actionDetail($id) {
-    $model = new PostForm();
-    $data = $model -> getDetail($id);
-
-    // 文章 pv 浏览量统计，要把 id 字段，数量给带过去
-    $model = new PostStatus();
-    $model -> getCounter(['postid' => $id], 'pv', 1);
-    
-    // print_r($data); exit();
-    return $this-> render('detail', ['data' => $data]);
-  }
-
 
   
   // 修改文章
@@ -199,7 +156,8 @@ class PostController extends Controller
       'model' => $model,
     ]);
   }
-  
+
+
   // 删除文章
   public function actionDelete($id)
   {
@@ -224,6 +182,6 @@ class PostController extends Controller
       return $model;
     }
     
-    throw new NotFoundHttpException('请求的页面不存在');
+    throw new NotFoundHttpException('请求的页面不存在', 404);
   }
 }

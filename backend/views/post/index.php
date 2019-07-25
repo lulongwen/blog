@@ -50,10 +50,10 @@
       'label' => '作者',
       'value' => 'user.username' // getUser 关联表的 username字段
     ],
-    'tags',
+    // 'tags',
     'summary:ntext',
 
-    'category.name', // 不能搜索
+    // 'category.name', // 不能搜索
     [
       'attribute' => 'categoryName',
       'label' => '分类',

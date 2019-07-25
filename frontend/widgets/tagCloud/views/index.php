@@ -15,6 +15,7 @@
 </style>
 <section class="panel panel-success">
   <h3 class="panel-body"><?= $data['title'] ?></h3>
+  
   <div class="panel-footer">
     <?php foreach($data['list'] as $key=> $list): ?>
       <a href="<?= Url::to(['post/index', 'tag' => $list['name']]) ?>"

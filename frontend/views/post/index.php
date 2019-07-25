@@ -15,8 +15,14 @@ use frontend\components\ReplyComment;
 
 $url = Yii::$app->urlManager->createUrl(['post/index']);
 
-// $this->title = 'Posts';
-// $this->params['breadcrumbs'][] = $this->title;
+/*
+ $this->title = 'Posts';
+ $this->params['breadcrumbs'][] = $this->title;
+
+ 评论
+<?= ReplyComment::widget(['comments' => $comments])?>
+ */
+
 ?>
 
 <div class="row">
@@ -84,35 +90,7 @@ $url = Yii::$app->urlManager->createUrl(['post/index']);
       <div class="panel-heading">
         <i class="glyphicon glyphicon-comment"></i> 最新评论
       </div>
-      <?= ReplyComment::widget(['comments' => $comments])?>
+
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
