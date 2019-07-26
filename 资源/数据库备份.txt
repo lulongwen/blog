@@ -1,0 +1,2 @@
+INSERT INTO `an_member_stowtype` VALUES('','','');
+INSERT INTO `an_member_stowtype` VALUES('','','');

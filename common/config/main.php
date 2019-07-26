@@ -10,9 +10,18 @@ return [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
+
         // 权限管理模块
         'authManager' => [
-    			'class' =>'yii\rbac\DbManager',
-    	  ],
+    		'class' =>'yii\rbac\DbManager',
+    	],
+
+        // Elastic
+        'elasticsearch' => [
+            'class' => 'yii\elasticsearch\Connection',
+            'nodes' => [
+                ['http_address' => '127.0.0.1:9200'],
+            ],
+        ],
     ],
 ];

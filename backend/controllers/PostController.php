@@ -140,10 +140,18 @@ class PostController extends Controller
       throw new ForbiddenHttpException('您没有该操作的权限，请联系管理员');
     }
 
-    $model = $this -> findModel($id);
+    // $model = $this -> findModel($id);
+    $model = new PostForm();
+    $model-> setScenario(PostForm::SCENARIO_UPDATE);
+
+    $data = $model-> update($id);
+
     // 更新时，把更新时间设置为当前时间，当执行 save时，保存的就是当前时间
     // 业务逻辑尽量避免放在控制器中间，应该放在模型文件中 Model
     // $model-> updated_at = time();
+
+    // echo '<pre>';
+    // var_dump($model); exit(0);
 
     if ($model -> load(Yii ::$app -> request -> post()) && $model -> save()) {
       // echo '<pre>';
@@ -153,7 +161,7 @@ class PostController extends Controller
 
 
     return $this -> render('update', [
-      'model' => $model,
+      'model' => $data
     ]);
   }
 

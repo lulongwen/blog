@@ -1,0 +1,173 @@
+
+
+/* public footer 
+  =================
+*/
+#footerBottom{
+  padding-top:20px;
+}
+#footerBottom a{
+  color: #300715;
+}
+.footer {
+  background-color: #300715;
+  padding: 2rem 4rem;
+  text-align: center;
+  color: #fff;
+}
+.footer img{
+  width:300px;
+  height:160px;
+}
+.footer h4 {
+  color: #fff;
+  font-size: 1em;
+  font-weight: 400;
+  text-transform: uppercase;
+  margin-top: 2.5rem;
+  margin-bottom: 10px;
+}
+.footer p, .footer a {
+  font-weight: 300;
+  color: #fff;
+}
+.menu-text strong{
+  font-weight:300;
+}
+@media only screen and (min-width: 40.063em) {
+  .footer .columns:nth-child(n+2) {
+    border-left: 1px solid #b3b3b3;
+    min-height: 327px;
+    height:auto;
+  }
+}
+.footer-links {
+  list-style-type: none;
+}
+.footer-links li {
+  margin-top: .5em;
+}
+/*  public footer END
+  ======================
+ */
+
+/* index.html 
+  ==================
+ */
+.index{
+  background: url(/images/index.jpg) no-repeat center top;
+}
+/*topbar*/
+.index .top-bar, .index .top-bar ul{
+  background-color: transparent;
+}
+.top-bar-right{
+  padding: 1.38rem 2rem
+}
+.menu > li > a, .top-bar-right h5, .art h2, .key-skills, .key-skills h3{
+  color:#fff
+}
+.index .menu > li > .menu{
+  background-color: rgba(0, 0, 0, .8)
+}
+.index h3 > a, .index h4 > a{
+  color:#300715;
+}
+/* == header END == */
+/* 背景图片 */
+#bg{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 800px;
+  background: rgba(234, 63, 109, 0.9);
+  opacity: .93;
+}
+
+/* 针对 -webkit- 浏览器 */
+.index .media-object-section h5{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+}
+/* 针对 -webkit- 浏览器 控制行数 */
+.index .media-object p.small{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.index .subheader{
+  font-size:80%;
+}
+.index .key-skills p{
+  margin-bottom:0;
+}
+.top-bar-right .menu > li{
+    line-height: 1;
+    padding: 0.7rem 1rem;
+}
+.dropdown.menu > li.is-dropdown-submenu-parent > a::after{
+border-color:#fff transparent transparent;
+}
+.art{
+  margin-top:5em;
+  margin-bottom:5em;
+  color:#fff;
+}
+.media-object img{
+  width:90px;
+  height:90px;
+}
+
+
+/* imagesList
+==============
+ */
+.imagesList{
+  margin-bottom:30px;
+}
+.imagesList > .columns{
+  margin-top:30px;
+}
+
+/* images
+==============
+ */
+.main-images{
+  padding:5% 0;
+  background-color: #fff;
+  overflow: hidden;
+}
+.main-images h1{font-size:30px}
+.imagesTitle{
+  width: 39%;
+  float: right;
+  padding:0 5%;
+}
+.imagesTitle p:first-letter{ 
+  color:#232323;
+  font-size:60px;
+  float:left; 
+  margin-right: 15px;
+}
+.imagesBox{
+  float: left;
+  width: 61%;
+  height: 100%;
+  overflow: hidden;
+}
+
+
+/* blog
+==============
+ */
+.menu.simple a{
+  color:#300715;
+}

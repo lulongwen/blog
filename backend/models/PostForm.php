@@ -202,4 +202,18 @@
     }
 
 
+
+
+    // update
+    public function update($id) {
+      // 所有的数据处理，都放在 models里面，逻辑处理放在 Form里面
+      $model = new Post();
+      // 把数据设置到 new Post里面，$model是数据库的字段
+      $model->setAttributes($this->attributes);
+
+      $model = Post::findModel($id);
+      var_dump('asdf',$model);
+    }
+
+
   }

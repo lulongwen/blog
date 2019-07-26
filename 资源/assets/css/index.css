@@ -1,0 +1,511 @@
+.top-bar {
+  color: #eee;
+}
+.top-bar .menu > li.is-submenu-item:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.top-bar .menu > li > .menu {
+  background-color: #300715;
+}
+.top-bar .dropdown.menu > li.is-dropdown-submenu-parent > a::after {
+  border-color: #fff transparent transparent;
+}
+.top-bar h5.small {
+  position: relative;
+  top: .7rem;
+  right: 1rem;
+}
+.index {
+  background: url(../images/index.jpg) no-repeat center 0;
+}
+.index .top-bar,
+.index .top-bar ul {
+  background-color: transparent;
+}
+.index .thinking {
+  color: #fff;
+}
+.index .thinking h3 {
+  color: #300715;
+}
+.index .thinking p {
+  margin-bottom: 0;
+}
+.index .menu > li {
+  color: #eee;
+}
+.index .menu > li:hover a,
+.index .menu > li:focus a {
+  color: #fff;
+}
+.index .art {
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+  color: #fff;
+}
+.index .skill {
+  margin-top: .375rem;
+}
+.index .skill .subheader {
+  font-size: 80%;
+}
+.index .media-object-section .h6,
+.index .media-object p.small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+.index .media-object-section .h6 {
+  -webkit-line-clamp: 1;
+}
+.index .media-object p.small {
+  -webkit-line-clamp: 3;
+}
+.index .media-object img {
+  height: 90px;
+}
+#bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 758px;
+  background: rgba(234, 63, 109, 0.9);
+  opacity: .93;
+  text-indent: -9999px;
+}
+#bg h1 {
+  margin-bottom: 0;
+  font-size: 0;
+  line-height: 0;
+}
+.line:hover > i {
+  width: 100%;
+}
+.line:hover::before,
+.line:hover::after {
+  height: 100%;
+}
+.line:before,
+.line:after {
+  content: '';
+  position: absolute;
+  width: 2px;
+  height: 0;
+  background-color: rgba(234, 63, 109, 0.9);
+  -webkit-transition: height 300ms ease-out 15ms, height 300ms ease-out 15ms;
+  transition: height 300ms ease-out 15ms, height 300ms ease-out 15ms;
+}
+.line:before {
+  top: 0;
+  right: -1px;
+}
+.line:after {
+  bottom: 0;
+  left: -1px;
+}
+.line > i {
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background-color: rgba(234, 63, 109, 0.9);
+  -webkit-transition: width 280ms ease-out 10ms, width 280ms ease-out 10ms;
+  transition: width 280ms ease-out 10ms, width 280ms ease-out 10ms;
+}
+.line > i:first-of-type {
+  top: -1px;
+  left: 0;
+}
+.line > i:last-of-type {
+  right: 0;
+  bottom: -1px;
+}
+@media (max-width: 1280px) {
+  .art strong {
+    display: none;
+  }
+}
+@media (max-width: 1024px) {
+  .art {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+  }
+}
+.footer {
+  padding: 2rem 0 1rem;
+  background-color: #300715;
+  color: #fefefe;
+}
+.footer li {
+  margin-top: .5rem;
+}
+footer[role=footer] {
+  padding-top: 1.25rem;
+}
+footer[role=footer] > p {
+  margin-top: 1rem;
+}
+footer[role=footer] a {
+  color: #300715;
+}
+.text-hide {
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+.radius {
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+.panel {
+  height: 18rem;
+  background-color: #300715;
+  color: #fff;
+}
+.web-lang + .web-lang {
+  margin-top: 2rem;
+}
+.app,
+.tools {
+  height: 26rem;
+  color: #fff;
+}
+.app {
+  background: #e0492a url(bgc/blueprint-7.png) 0 -22px repeat;
+}
+.pricing-table {
+  padding: .85rem;
+}
+.pricing-table .title {
+  border-bottom: dotted 1px #DDDDDD;
+  font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+  font-size: 1rem;
+  padding: .75rem 0;
+}
+.pricing-table .bullet-item {
+  background-color: #FFFFFF;
+  border-bottom: dotted 1px #DDDDDD;
+  color: #333333;
+  font-size: 0.875rem;
+  font-weight: normal;
+}
+.active-tb {
+  position: relative;
+  box-shadow: 0px 2px 10px 0px rgba(50, 50, 50, 0.2);
+  transform: scale(1);
+  border: 0;
+  transition: 0.4s ease;
+  z-index: 13;
+}
+.active-tb:hover {
+  position: relative;
+  box-shadow: 0px 2px 10px 0px rgba(50, 50, 50, 0.5);
+  transform: scale(1.08);
+  border: 0;
+  z-index: 15;
+}
+.tools {
+  background: #0076ec url(bgc/blueprint-7.png) 0 -22px repeat;
+}
+.css3-selector {
+  height: 16rem;
+  background: #0076ec url(bgc/blueprint-6.png) 0 0 repeat;
+  color: #fff;
+}
+.images-list .column {
+  margin-bottom: 2rem;
+}
+.ecma5 {
+  height: 18rem;
+  background: #750000 url(bgc/red.png) 0 0 repeat;
+  color: #fff;
+}
+.list h3 {
+  margin: 1rem 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+.list h3 em {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  margin-right: 16px;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  background: #3adb76;
+  color: #fff;
+  text-align: center;
+}
+.list dl {
+  padding-left: 100px;
+  position: relative;
+}
+.list dl:before {
+  content: '';
+  position: absolute;
+  left: 38px;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: #3adb76;
+}
+.list dt,
+.list dd {
+  padding: .5rem 1rem;
+}
+.list dt {
+  background-color: #fafafa;
+  transition: background-color 0.3s ease;
+}
+.list dt:hover {
+  background-color: #f2f2f2;
+}
+.list h4 {
+  font-size: 1rem;
+}
+.full-stack h1 {
+  margin: 3rem 0;
+  font-size: 5rem;
+  color: #0aa344;
+}
+.full-stack h1 + a {
+  position: relative;
+  top: -3.5rem;
+}
+.full-stack .column:nth-of-type(2) section {
+  border-color: #0ff;
+  background-color: #9ff;
+}
+.full-stack .column:nth-child(3) section {
+  border-color: #f09;
+  background-color: #f9c;
+}
+.full-stack .column:nth-child(4) section {
+  border-color: #0f0;
+  background-color: #9f9;
+}
+.full-stack .column:nth-child(5) section {
+  border-color: #f00;
+  background-color: #f99;
+}
+.full-stack .column:nth-child(6) section {
+  border-color: #09f;
+  background-color: #9cf;
+}
+.full-stack .column:nth-child(7) section {
+  border-color: #0f9;
+  background-color: #9fc;
+}
+.full-stack .column:nth-child(8) section {
+  border-color: #9f0;
+  background-color: #cf9;
+}
+.full-stack .column:nth-child(9) section {
+  border-color: #90f;
+  background-color: #c9f;
+}
+.full-stack .column:nth-child(10) section {
+  border-color: #f0f;
+  background-color: #ff99ff;
+}
+.full-stack .column:nth-child(11) section {
+  border-color: #000;
+  background-color: #999;
+}
+.full-stack .column:nth-child(12) section {
+  border-color: #9f0;
+  background-color: #cf9;
+}
+.full-stack .column section {
+  min-height: 190px;
+  height: auto;
+  margin-bottom: 2rem;
+  padding: 5%;
+  text-align: center;
+  border: 5px solid #ff0;
+  background-color: #ff9;
+  -webkit-box-shadow: 0 0 5px #161823;
+  box-shadow: 0 0 5px #161823;
+  -webkit-transition: box-shadow 0.06s;
+  transition: box-shadow 0.06s;
+}
+.full-stack .column section:hover {
+  box-shadow: 0 0 25px #000;
+}
+.full-stack .column h2 {
+  display: inline-block;
+  margin-bottom: 1rem;
+  padding-bottom: 3px;
+  border-bottom: 2px solid #161823;
+  color: #000;
+}
+.full-stack .column a {
+  display: block;
+  color: #161823;
+  line-height: 30px;
+}
+.full-stack .column a:hover,
+.full-stack .column a:focus {
+  color: #300715;
+}
+.full-stack .column strong,
+.full-stack .column em {
+  font-weight: 500;
+}
+.full-stack .column hr {
+  border-color: #90f;
+}
+.unit {
+  height: 16rem;
+  background: #0076ec url(bgc/blueprint-7.png) 0 -18px repeat;
+  color: #fff;
+}
+#docsMenu {
+  background: #fafafa;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+#docsMenu a {
+  color: #2199e8;
+  font-size: 0.85rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+#docsMenu a:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+#docsMenu .docs-nav-title {
+  margin: 1rem 0 .5rem;
+  padding: 1.5rem 0 0 0.9rem;
+  border-top: 1px solid #e9e9e9;
+  font-size: 0.75rem;
+  color: #999;
+  font-weight: bold;
+}
+/* prettify css */
+pre.prettyprint {
+  display: block;
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #272822;
+  font-family: 'courier new', monospace;
+  overflow: hidden;
+}
+/* SPAN elements with the classes below are added by prettyprint
+  prettyprint 下的 span元素
+*/
+pre .nocode {
+  background-color: none;
+  color: #000000;
+}
+pre .str {
+  color: #ffa0a0;
+}
+pre .kwd {
+  color: #f0e68c;
+  font-weight: bold;
+}
+pre .com {
+  color: #ae81ff;
+}
+pre .typ {
+  color: #98fb98;
+}
+pre .lit {
+  color: #a6e22e;
+}
+/* a literal value  类名 */
+pre .pun {
+  color: #ffffff;
+}
+pre .pln {
+  color: #66D9EF;
+}
+/* plain text 纯文本 */
+pre .tag {
+  color: #f92672;
+}
+/* a markup tag name 标签颜色 */
+pre .atn {
+  color: #a6c628;
+}
+/* a markup attribute name  属性名 */
+pre .atv {
+  color: #e6db74;
+}
+/* a markup attribute value 属性值 */
+pre .dec {
+  color: #98fb98;
+}
+/* Specify class=linenums on a pre to get line numbering
+*/
+.prettyprint.linenums {
+  -webkit-box-shadow: 40px 0 0 #3E3D32 inset, 41px 0 0 #464740 inset;
+  box-shadow: 40px 0 0 #3E3D32 inset, 41px 0 0 #464740 inset;
+}
+ol.linenums {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 1em;
+  color: #bebec5;
+  /* 序列号数字的颜色 */
+}
+ol.linenums li {
+  padding-left: 10px;
+  line-height: 1.6;
+  word-wrap: break-word;
+}
+@media print {
+  pre.prettyprint {
+    background-color: none;
+  }
+  pre .str,
+  code .str {
+    color: #006600;
+  }
+  pre .kwd,
+  code .kwd {
+    color: #006;
+    font-weight: bold;
+  }
+  pre .com,
+  code .com {
+    color: #600;
+    font-style: italic;
+  }
+  pre .typ,
+  code .typ {
+    color: #404;
+    font-weight: bold;
+  }
+  pre .lit,
+  code .lit {
+    color: #004444;
+  }
+  pre .pun,
+  code .pun {
+    color: #444400;
+  }
+  pre .pln,
+  code .pln {
+    color: #000000;
+  }
+  pre .tag,
+  code .tag {
+    color: #006;
+    font-weight: bold;
+  }
+  pre .atn,
+  code .atn {
+    color: #440044;
+  }
+  pre .atv,
+  code .atv {
+    color: #006600;
+  }
+}
