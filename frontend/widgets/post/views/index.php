@@ -36,7 +36,7 @@
     </h2>
     <nav class="nav">
       <span>作者：
-        <a href="<?= Url::to(['member/index', 'id' => $list['userid']]) ?>">
+        <a href="<?= Url::to(['post/index', 'id' => $list['userid']]) ?>">
         <?= $list['userid'] ?>
         </a>
       </span>

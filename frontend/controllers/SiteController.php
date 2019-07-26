@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use frontend\models\ResendVerificationEmailForm;
 use frontend\models\VerifyEmailForm;
+
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\web\BadRequestHttpException;
@@ -12,8 +13,10 @@ use yii\filters\VerbFilter;
 use yii\filters\AccessControl; // ACF 权限控制
 
 use common\models\LoginForm;
+use common\models\Chat;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
+
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 
@@ -82,10 +85,8 @@ class SiteController extends Controller
     $model = new Chat();
     $model -> content = Yii ::$app -> request -> post('content');
     // 保存成功
-    if ($model -> validate()) {
-      if ($model -> create()) {
-        return json_encode(['status' => true]);
-      }
+    if ($model -> validate() && $model -> create()) {
+      return json_encode(['status' => true]);
     }
     
     return json_decode(['status' => false, 'message' => '状态发布失败']);
@@ -95,8 +96,7 @@ class SiteController extends Controller
   {
     // 屏蔽登陆页
     // return $this->redirect(['site/index']);
-
-
+    
     if (!Yii ::$app -> user -> isGuest) {
       return $this -> goHome();
     }

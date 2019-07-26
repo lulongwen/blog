@@ -13,14 +13,14 @@
    tag
    <?= implode(',', $model->taglink) ?>
 
-   <?= $model->user->username ?>
-
    <span>
       <i class="glyphicon glyphicon-comment"></i>
       <?= Html::a("评论 ({$model->commentCount})", $model->url . '#comments') ?>
     </span>
    */
 
+  // echo '<pre>';
+  // var_dump($model); exit();
 ?>
 <section class="post-items">
   <h2 class="title">
@@ -33,7 +33,7 @@
     </span>
     <span>
       <i class="glyphicon glyphicon-user"></i>
-      
+      <?= $model->userid ?>
     </span>
   </p>
 

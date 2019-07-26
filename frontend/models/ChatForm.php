@@ -10,6 +10,7 @@
   use Yii;
   use Exception;
   use yii\base\Model;
+  
   use common\models\Chat;
 
   class ChatForm extends Model{
@@ -41,7 +42,7 @@
         $model -> content = $this-> content;
         $model -> created_at = time();
 
-        if (!$model-> save()) throw new Exception('发布消息失败');
+        if (!$model-> save()) throw new \Exception('发布消息失败');
         return true;
       }
       catch(Exception $err) {
@@ -54,11 +55,12 @@
     // 获取信息
     public function getList() {
       $model = new Chat();
-      $data = $model -> find() -> limit(10)
+      $res = $model -> find() -> limit(10)
         -> with('user')-> orderBy(['id' => SORT_DESC])
         -> asArray() -> all();
-
-      return $data ?: [];
+      
+      // 如果有值返回值，否则返回空数组
+      return $res ?: [];
     }
   }
 

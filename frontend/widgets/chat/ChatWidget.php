@@ -11,10 +11,15 @@
   use Yii;
   use yii\base\BaseObject;
   use yii\bootstrap\Widget;
+  
   use frontend\models\ChatForm;
 
   class ChatWidget extends Widget {
-    public $title = '时刻动态';
+    public $title = '直言片语'; // 时刻动态
+    
+    public function init() {
+    
+    }
     
     public function run() {
       $chat = new ChatForm();

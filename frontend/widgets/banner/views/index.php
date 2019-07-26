@@ -23,7 +23,8 @@
     
     <ol class="carousel-indicators">
       <?php foreach($data['items'] as $key => $val): ?>
-      <li data-target="#carousel" data-slide-to="<?= $key ?>"
+      <li data-target="#carousel"
+        data-slide-to="<?= $key ?>"
         class="<?= (isset($val['active']) && $val['active']) ? 'active' : '' ?>"></li>
       <?php endforeach ?>
     </ol>

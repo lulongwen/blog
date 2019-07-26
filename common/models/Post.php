@@ -174,41 +174,6 @@ class Post extends \yii\db\ActiveRecord
   }
 
 
-  // 获取分页
-  public function getPages($query, $page = 1, $pageSize = 10, $search = null)
-  {
-    if ($search) {
-      $query = $query -> andFilerWhere($search);
-    }
-
-    $data['count'] = $query -> count();
-    if (!$data['count']) {
-      return [
-        'count' => 0,
-        'page' => $page,
-        'pageSize' => $pageSize,
-        'start' => 0,
-        'end' => 0,
-        'data' => []
-      ];
-    }
-
-    // 超过实际页数，不取 page为当前页
-    $page = (ceil($data['count'] / $pageSize) < $page) ? ceil($data['count'] / $pageSize) : $page;
-
-    // 当前页
-    $data['page'] = $page;
-    // 每页显示条数，起始页，末页
-    $data['pageSize'] = $pageSize;
-    $data['start'] = ($page - 1) * $pageSize + 1;
-    $data['end'] = (ceil($data['count'] / $pageSize) == $page) ? $data['count'] : ($page - 1) * $pageSize + $pageSize;
-
-    $data['data'] = $query -> offset(($page - 1) * $pageSize) -> limit($pageSize) -> asArray() -> all();
-
-    return $data;
-  }
-
-
   public function getStatus0()
   {
     // className() 表名，第二个参数，关联的条件
@@ -298,8 +263,7 @@ class Post extends \yii\db\ActiveRecord
 
     return $links;
   }
-
-
+  
   // 截取字符串长度
   public function getBeginning($length = 288)
   {
@@ -311,25 +275,68 @@ class Post extends \yii\db\ActiveRecord
   }
 
 
-
-
-  // PostForm
-  // 获取文章数据
-  public static function getList($where, $page=1, $pageSize=5, $orderBy=['id' => SORT_DESC]) {
+  
+  // postWidget 获取文章数据
+  public static function getList($where, $page=1, $pageSize=5, $orderBy=['id' => SORT_DESC])
+  {
     $model = new Post();
     // 查询的字段, 查询语句
     $select = ['id', 'title', 'summary', 'thumbnail', 'categoryid',
       'userid', 'status', 'created_at', 'updated_at'];
 
     $query = $model-> find() -> select($select)
-      -> where($where)// -> with('relate.tag', 'comment')
+      -> where($where) -> with('relate.tag', 'postStatus')
       -> orderBy($orderBy);
 
     // 获取分页数据，格式化数据
     $res = $model-> getPages($query, $page, $pageSize);
+    // 格式化数据
     $res['data'] = self::_formatList($res['data']);
-
     return $res;
+  }
+  
+  // 获取分页
+  public function getPages($query, $page = 1, $pageSize = 10, $search = null)
+  {
+    if ($search) {
+      $query = $query -> andFilerWhere($search);
+    }
+    
+    $data['count'] = $query -> count();
+    // 如果没有查询到数据，返回一个默认值
+    if (!$data['count']) {
+      return [
+        'count' => 0,
+        'page' => $page,
+        'pageSize' => $pageSize,
+        'start' => 0,
+        'end' => 0,
+        'data' => []
+      ];
+    }
+    
+    // 超过实际页数，不取 page为当前页，取计算出来的值
+    $page = (ceil($data['count'] / $pageSize) < $page) ?
+      ceil($data['count'] / $pageSize) :
+      $page;
+    
+    // 当前页
+    $data['page'] = $page;
+    // 每页显示条数，起始页，末页
+    $data['pageSize'] = $pageSize;
+    // 起始页
+    $data['start'] = ($page - 1) * $pageSize + 1;
+    // 结束页
+    $data['end'] = (ceil($data['count'] / $pageSize) == $page) ?
+      $data['count'] :
+      ($page - 1) * $pageSize + $pageSize;
+    
+    // 数据
+    $data['data'] = $query
+      -> offset(($page - 1) * $pageSize)
+      -> limit($pageSize) -> asArray() -> all();
+    
+    return $data;
   }
 
   // 格式化数据 &$item
@@ -341,7 +348,7 @@ class Post extends \yii\db\ActiveRecord
           $item['tag'][] = $tag['tag']['name'];
         }
       }
-
+      
       // 遍历完成后删除格式化前的字段,关联的数据表
       unset($item['relate']);
     }

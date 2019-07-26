@@ -20,6 +20,7 @@ class PostController extends Controller
 {
   public $added = 0; // 0代表还没有新回复
   
+  // ACF权限验证
   public function behaviors()
   {
     return [
@@ -32,27 +33,6 @@ class PostController extends Controller
       ],
     ];
   }
-  
-
-  // 列表页
-  public function actionIndex()
-  {
-    // 把标签云数组传递给视图文件
-    $tags = Tag::findTags();
-
-    // 获取评论给 列表页渲染
-    $comments = Comment::findReplyComments();
-    
-    $searchModel = new PostSearch();
-    $dataProvider = $searchModel -> search(Yii ::$app -> request -> queryParams);
-    
-    return $this -> render('index', [
-      'searchModel' => $searchModel,
-      'dataProvider' => $dataProvider,
-      'tags' => $tags,
-      'comments' => $comments
-    ]);
-  }
 
 
   protected function findModel($id)
@@ -64,7 +44,7 @@ class PostController extends Controller
     throw new NotFoundHttpException('页面没有找到', 404);
   }
 
-
+  // 详情页
   public function actionDetail($id) {
     // 文章数据
     $model = new Post();
@@ -86,8 +66,7 @@ class PostController extends Controller
     ]);
   }
 
-
-
+  
   // 前台只显示，文章详情，带评论功能
   public function actionDetail2($id) {
     // 1 准备数据，文章，标签，最新回复的数据
@@ -120,6 +99,48 @@ class PostController extends Controller
       'added' => $this-> added,
     ]);
   }
-
-
+  
+  
+  // 前端开发
+  public function actionIndex()
+  {
+    // 把标签云数组传递给视图文件
+    $tags = Tag::findTags();
+    
+    // 获取评论给 列表页渲染
+    $comments = Comment::findReplyComments();
+    
+    $searchModel = new PostSearch();
+    $dataProvider = $searchModel -> search(Yii ::$app -> request -> queryParams);
+    
+    return $this -> render('index', [
+      'searchModel' => $searchModel,
+      'dataProvider' => $dataProvider,
+      'tags' => $tags,
+      'comments' => $comments
+    ]);
+  }
+  
+  
+  // 后端开发
+  public function actionBackend() {
+    return $this-> renderPartial('backend');
+  }
+  
+  
+  // 项目经理
+  public function actionPmp() {
+    return $this-> renderPartial('pmp');
+  }
+  
+  
+  // 全栈架构
+  public function actionFullstack() {
+    return $this-> renderPartial('fullstack');
+  }
+  
+  
+  public function actionRoad() {
+    return $this-> renderPartial('road');
+  }
 }

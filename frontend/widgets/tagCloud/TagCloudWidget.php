@@ -8,7 +8,7 @@
   
   class TagCloudWidget extends Widget {
     public $title = '标签云';
-    public $limit = 20;
+    public $limit = 30;
     public $style = [
       '0' => 'danger',
       '1' => 'info',

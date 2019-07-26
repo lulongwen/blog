@@ -9,10 +9,10 @@ $this->title = '卢珑文的博客';
 
 <div class="row">
   <div class="col-md-9">
+    <?= PostWidget::widget() ?>
+  
     <!-- 图片轮播，文章列表  -->
     <?= BannerWidget::widget() ?>
-
-    <?= PostWidget::widget() ?>
   </div>
   
   <div class="col-md-3">

@@ -16,7 +16,7 @@
 
   class PostWidget extends Widget {
     public $title = '最新文章';
-    public $limit = 6; // 显示条数
+    public $limit = 10; // 显示条数
     public $more = true; // 是否显示更多
     public $page = true; // 是否分页
     
@@ -24,6 +24,7 @@
     public function run() {
       // 查询条件, status=1 已发布
       $query = ['=', 'status', 1];
+      // 通过 get去获取页码参数
       $page = Yii::$app-> request->get('page', 1);
       $res = Post::getList($query, $page, $this->limit);
       
