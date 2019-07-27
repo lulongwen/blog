@@ -179,8 +179,10 @@
   .skin-red-light.sidebar-mini.sidebar-collapse .sidebar-menu > li > .treeview-menu {
     border-left: 1px solid #d2d6de; } }
 .tags-input {
-  padding-top: 3px;
-  padding-bottom: 3px; }
+  width: 100%;
+  padding: 3px 12px;
+  background: #FFF;
+  border: 1px solid #CCC; }
   .tags-input .tag {
     display: inline-block;
     background: #EEE;

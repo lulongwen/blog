@@ -62,6 +62,17 @@ $url = Yii::$app->urlManager->createUrl(['post/index']);
     <div class="panel panel-success">
       <div class="panel-heading">
         <i class="glyphicon glyphicon-search"></i> 查找文章
+        <!-- 缓存-->
+        <?php
+        $data = Yii::$app -> cache-> get('postCount');
+        $dependency = new \yii\caching\DbDependency(['sql' => 'select count(id) from blog_post']);
+        if (!$data) {
+          $data = Post::find() -> count();
+          Yii::$app->cache
+            -> set('postCount', $data, 600, $dependency);
+        }
+        echo $data;
+        ?>
       </div>
       <div class="panel-body">
         <form action="<?= $url ?>" class="form-inline" id="w0" method="get">

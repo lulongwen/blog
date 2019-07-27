@@ -31,6 +31,15 @@ class PostController extends Controller
           'delete' => ['POST'],
         ],
       ],
+      
+      'httpCache' => [
+        'class' => 'yii\filters\HttpCache',
+        'only' => ['detail', 'index'],
+        'lastModified' => function($action, $params) {
+          $query = new \yii\db\Query();
+          return $query-> from('blog_post')-> max('updated_at');
+        }
+      ],
     ];
   }
 

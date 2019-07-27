@@ -1,6 +1,9 @@
 .tags-input {
-  padding-top: 3px;
-  padding-bottom: 3px;
+  width: 100%;
+  padding: 3px 12px;
+  background: #FFF;
+  border: 1px solid #CCC;
+  
   .tag {
     display: inline-block;
     background: #EEE;

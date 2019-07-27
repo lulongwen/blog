@@ -41,7 +41,7 @@
       'label' => '文章内容',
     ],
     'thumbnail',
-    // 'tags',
+    'tags',
     [
       'attribute' => 'userid',
       'label' => '作者ID', // 覆盖 attributeLabel
