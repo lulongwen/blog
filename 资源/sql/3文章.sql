@@ -25,6 +25,7 @@ CREATE TABLE `blog_post` (
 ) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COMMENT='文章主表';
 
 
+
 DROP TABLE IF EXISTS `blog_tag`;
 CREATE TABLE `blog_tag` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增 id',
@@ -35,13 +36,19 @@ CREATE TABLE `blog_tag` (
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COMMENT='标签表';
 
 
+
 DROP TABLE IF EXISTS `blog_category`;
 CREATE TABLE `blog_category` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增 id',
-  `name` varchar(80) DEFAULT NULL COMMENT '分类名称',
+  `id` mediumint(8) NOT NULL AUTO_INCREMENT COMMENT '自增 id',
+  `pid` mediumint(8) NOT NULL DEFAULT '0' COMMENT '父级 id',
+  `name` varchar(30) DEFAULT NULL COMMENT '分类名称',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否可用',
+  `position` mediumint(8) NOT NULL DEFAULT '0' COMMENT '排序',
+  `created_at` int(11),
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COMMENT='分类表';
+
 
 
 DROP TABLE IF EXISTS `blog_post_tag`;
@@ -52,6 +59,7 @@ CREATE TABLE `blog_post_tag` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `postid` (`post_id`,`tag_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COMMENT='文章和标签的关联';
+
 
 
 DROP TABLE IF EXISTS `blog_post_status`;

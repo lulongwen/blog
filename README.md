@@ -1,13 +1,21 @@
 # Yii 博客项目知识点
-* Yii2 框架的基础配置和数据库配置
-* Yii2 场景和事件的应用
-* Yii2 注册登录及完整的前台功能
-* 使用 Gii快速生成 代码
-* ActiveRecorad
-* 文章统计功能
 
-* 后台布局
-* 菜单组件
+1. Yii核心思想
+  * 快速开发
+  * 避免重复劳动，提升代码重用可扩展，使用 Gii快速生成代码
+  * 数据库改变，如何用 Gii生成代码
+
+2. 扩展的使用
+  * 编辑器扩展
+  * 图片上传扩展
+  * 标签的扩展
+  
+3. Yii框架的应用
+  * 场景应用，事件，rule规则，挂件等
+  * ActiveRecord 和 Model
+  * Yii2 注册登录及完整的前台功能
+  * Yii2 框架的基础配置和数据库配置
+
 
 
 ## 博客流程
@@ -33,7 +41,8 @@
 ```
 
 
-## 博客分析
+
+## 博客功能分析
 ```
 前台项目
 	用户登录
@@ -69,12 +78,6 @@
 ```
 
 
-## 本地虚拟主机配置
-```bash
-
-
-```
-
 
 ## 1 Yii2 框架的基础配置
 1. Yii2 的安装
@@ -82,12 +85,23 @@
 3. 路由配置
 4. 配置语言包
 5. 独立的前后台用户表
-```
 
 ```
+yii migration
+	数据库自动新增 user 和 migration表
+
+	链接数据库很慢
+	把数据库默认的 localhost 改为127.0.0.1, 速度马上就正常了
+	
+// 设置 id 自动增长序号
+  alter table comment AUTO_INCREMENT=9;
+
+```
+
 
 
 ## 2 博客系统前台
+
 1. 前台UI界面
 2. 前台用户注册登录
 	* 注册添加验证码和重复密码验证
@@ -119,6 +133,7 @@
 
 
 ## 3 博客系统后台
+
 1. 后台管理员登录
 2. 后台整体布局
 3. 会员管理
@@ -127,6 +142,31 @@
 ```
 
 ```
+
+
+## Gii工具的使用
+
+```
+	ActiveRecord 关联数据库的表，数据的增删查改
+	增删查改都是后台的功能，放在 backend models 里面
+
+Gii CRUD
+	使用 Gii backend/web/index.php?r=gii
+
+	Model Class
+		common\models\Post
+
+	Search Model Class
+		common\models\PostSearch
+
+	Controller Class
+		common\controllers\PostController
+
+	View Path
+		@app/views/post
+
+```
+
 
 
 

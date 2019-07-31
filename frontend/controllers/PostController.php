@@ -133,7 +133,11 @@ class PostController extends Controller
   
   // 后端开发
   public function actionBackend() {
-    return $this-> renderPartial('backend');
+    $this-> layout = 'list';
+
+    $model = new Post();
+
+    return $this-> render('backend', ['model' => $model]);
   }
   
   

@@ -19,7 +19,6 @@ use yii\web\NotFoundHttpException;
  * @property string $content 文章内容
  * @property string $thumbnail 缩略图
  * @property int $userid 作者 id
- * @property int $username 作者
  * @property int $categoryid 分类 id
  * @property int $status 是否发布，0-未发布，1-已发布
  * @property int $created_at 创建时间
@@ -41,7 +40,7 @@ class Post extends \yii\db\ActiveRecord
   {
     return [
       [['title', 'content', 'status'], 'required'],
-      [['summary', 'content', 'username'], 'string'],
+      [['summary', 'content',], 'string'],
       [['userid', 'categoryid', 'status', 'created_at', 'updated_at', 'deleted_at'], 'integer'],
       [['title'], 'string', 'max' => 200],
       [['thumbnail'], 'string', 'max' => 120]
@@ -58,7 +57,6 @@ class Post extends \yii\db\ActiveRecord
       'content' => '内容',
       'thumbnail' => '缩略图',
       'userid' => '作者ID',
-      'username' => '作者',
       'categoryid' => '分类',
       'status' => '状态',
       'created_at' => '创建时间',
