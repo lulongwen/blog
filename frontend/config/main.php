@@ -1,7 +1,10 @@
 <?php
-$params = array_merge(require __DIR__ . '/../../common/config/params.php',
-  require __DIR__ . '/../../common/config/params-local.php', require __DIR__ . '/params.php',
-  require __DIR__ . '/params-local.php');
+$params = array_merge(
+  require __DIR__ . '/../../common/config/params.php',
+  require __DIR__ . '/../../common/config/params-local.php',
+  require __DIR__ . '/params.php',
+  require __DIR__ . '/params-local.php'
+);
 
 $route = require __DIR__ . '/route.php';
 $i18n = require __DIR__ . '/i18n.php';
@@ -41,7 +44,7 @@ return [
     'errorHandler' => [
       'errorAction' => 'site/error',
     ],
-    // 'urlManager' => $route, // URL美化
+    'urlManager' => $route, // URL美化
     // 'i18n' => $i18n ,  //  语言包设置
     /*
     'urlManager' => [
