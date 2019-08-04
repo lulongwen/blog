@@ -2,7 +2,7 @@
 namespace frontend\components;
 
 use Yii;
-use yii\Base\Widget;
+use yii\base\Widget;
 // use yii\helpers\Html;
 
 class TagsCloud extends Widget {

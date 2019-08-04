@@ -14,8 +14,9 @@ return [
   'basePath' => dirname(__DIR__),
   'bootstrap' => ['log'],
   'name' => '珑文的博客',
+  'homeUrl' => '/',
   // 设置默认首页
-  // 'defaultRoute' => 'post',
+  'defaultRoute' => 'site/index',
   'language' => 'zh-CN', // linux 严格区分大小写
   'controllerNamespace' => 'frontend\controllers',
   'components' => [
@@ -47,13 +48,11 @@ return [
     'urlManager' => $route, // URL美化
     // 'i18n' => $i18n ,  //  语言包设置
     /*
-    'urlManager' => [
-        'enablePrettyUrl' => true,
-        'showScriptName' => false,
-        'rules' => [
-        ],
-    ],
     'assetManager' => [
+      'appendTimestamp' => true,//实测对性能有影响
+      'linkAssets' => true, // 刷新后就可以清除缓存
+      'forceCopy'=>true,
+
       'bundles' => [
         'yii\bootstrap\BootstrapAsset' => [
           'css' => [],  // 去除 bootstrap.css
